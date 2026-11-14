@@ -101,7 +101,9 @@ button.btn.primary { background: var(--ink); color: var(--ground); }
 button.btn.primary:hover { background: var(--ground); color: var(--ink); }
 
 /* Home */
-.episode { margin-top: var(--xl); }
+.episode, .section { margin-top: var(--xl); }
+.section h2 { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--md); }
+.section p, .episode p { max-width: 38em; }
 .episode h2 { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--sm); }
 label { display: block; font-size: var(--t-note); font-weight: 500; color: var(--ink-2); margin: var(--md) 0 var(--xs); }
 input[type="text"] {

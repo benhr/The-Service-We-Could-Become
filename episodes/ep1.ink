@@ -37,8 +37,10 @@ VAR navs = 14
 === monday ===
 Monday # h
 It's your first week as chief executive of the Tallowfield Integrated Care Authority, one of the new authorities set up across the country under the new National Health Reform Agreement. Most of the staff came across from the Local Health District (LHD) and the Primary Health Network (PHN). They are still on different industrial agreements, and for now, two email systems.
+Until last month, community health, primary care commissioning and the programs meant to keep people out of hospital were run by two organisations answering to two governments. Now they belong to the Authority: about $475 million a year, roughly 140 staff, and every contract and program the two organisations handed over.
+The handover register lists 312 contracts and 41 programs. Each has an end date, a provider, staff, and people who rely on it. The Act that created the Authority will be reviewed in three years, and the Minister's office has already asked what it will have to show by its first quarterly report.
 Ruth Okonkwo, the Director of Strategy and Planning, is on secondment from the state health department. She comes in with one folder.
-"This one needs a decision this week," she says. "The Clinical Navigator Program."
+"This one needs a decision this week," she says. "The Clinical Navigator Program. It's the first program decision the Authority makes, so everyone else on that register will be reading it for what it says about the rest."
 The program has 14 Clinical Navigators, mostly registered nurses, with two allied health staff. They support about 620 people with several chronic conditions: booking appointments, arranging transport, sorting out medicines, following up test results and chasing services that haven't called back.
 The LHD and the PHN set it up three years ago, in the voluntary partnership that came before the Authority. The LHD runs the region's public hospitals and community health services. The PHN commissions primary care with Commonwealth funding.
 The program costs about $2.3 million a year. The PHN pays $1.6 million. The LHD hosts the team at Eastlake Community Health Centre and covers $0.7 million in salaries for 11 of the 14 navigators. The funding agreement ends in four months.
