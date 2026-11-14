@@ -42,7 +42,7 @@ async function start(ep, ledgerState) {
     for (const k of LEDGER) story.variablesState[k] = ledgerState[k];
     story.variablesState['code_loaded'] = true;
   }
-  storyEl.innerHTML = ''; choicesEl.innerHTML = ''; endingEl.hidden = true; docBlock = null;
+  storyEl.innerHTML = ''; choicesEl.innerHTML = ''; endingEl.hidden = true; docBlock = null; promptCount = 0;
   $('episode-title').textContent = TITLES[ep] || ep;
   home.hidden = true; play.hidden = false; $('tools').hidden = false;
   history.replaceState(null, '', '#' + ep);
@@ -50,26 +50,60 @@ async function start(ep, ledgerState) {
   step(true);
 }
 
-function add(el) { storyEl.appendChild(el); return el; }
+// Each piece of text is a row on the reference grid: the text in the primary
+// column, and any label (who a document is from, a question number) in the margin.
+let promptCount = 0;
 
-function render(text, tags) {
+function row(marginText, extraClass) {
+  const r = document.createElement('div');
+  r.className = 'row' + (extraClass ? ' ' + extraClass : '');
+  const p = document.createElement('div'); p.className = 'p';
+  const m = document.createElement('div'); m.className = 'm';
+  if (marginText) m.textContent = marginText;
+  r.append(p, m);
+  storyEl.appendChild(r);
+  return p;
+}
+
+function para(parent, text, cls) {
+  const el = document.createElement('p');
+  el.textContent = text;
+  if (cls) el.className = cls;
+  parent.appendChild(el);
+  return el;
+}
+
+// Typographic quotes and apostrophes, so the ink source can use plain ones.
+function smart(t) {
+  return t
+    .replace(/(^|[\s(\[])"/g, '$1\u201C').replace(/"/g, '\u201D')
+    .replace(/(^|[\s(\[])'/g, '$1\u2018').replace(/'/g, '\u2019');
+}
+
+function render(raw, tags) {
+  const text = smart(raw);
   const tag = tags[0] || '';
   if (tag === 'h') {
     docBlock = null;
-    const h = document.createElement('h2'); h.textContent = text; return add(h);
+    const h = document.createElement('h2'); h.textContent = text;
+    row('').appendChild(h);
+    return h;
   }
   if (tag === 'doc-head') {
-    docBlock = add(document.createElement('div')); docBlock.className = 'doc';
-    const h = document.createElement('h3'); h.textContent = text; docBlock.appendChild(h); return docBlock;
+    const cell = row(text, 'docrow');
+    docBlock = document.createElement('div'); docBlock.className = 'doc';
+    cell.appendChild(docBlock);
+    return cell.parentElement;
   }
   if (tag === 'doc') {
-    if (!docBlock) { docBlock = add(document.createElement('div')); docBlock.className = 'doc'; }
-    const p = document.createElement('p'); p.textContent = text; docBlock.appendChild(p); return p;
+    if (!docBlock) { docBlock = document.createElement('div'); docBlock.className = 'doc'; row('', 'docrow').appendChild(docBlock); }
+    return para(docBlock, text);
   }
   docBlock = null;
-  const p = document.createElement('p'); p.textContent = text;
-  if (['placeholder', 'prompt', 'quiet'].includes(tag)) p.className = tag;
-  return add(p);
+  if (tag === 'placeholder') return para(row('Placeholder'), text, 'placeholder');
+  if (tag === 'prompt') { promptCount++; return para(row('Question ' + promptCount), text, 'prompt'); }
+  if (tag === 'quiet') return para(row(''), text, 'quiet');
+  return para(row(''), text, 'narr');
 }
 
 function step(first) {
@@ -83,7 +117,7 @@ function step(first) {
   choicesEl.innerHTML = '';
   story.currentChoices.forEach((choice, i) => {
     const b = document.createElement('button');
-    b.type = 'button'; b.textContent = choice.text;
+    b.type = 'button'; b.className = 'btn'; b.textContent = smart(choice.text);
     b.addEventListener('click', () => choose(i, choice.text));
     choicesEl.appendChild(b);
   });
@@ -97,7 +131,7 @@ function step(first) {
 
 function choose(i, text) {
   docBlock = null;
-  const p = document.createElement('p'); p.className = 'chosen'; p.textContent = text; add(p);
+  para(row('You chose'), smart(text), 'chosen');
   story.ChooseChoiceIndex(i);
   step(false);
 }
@@ -105,7 +139,7 @@ function choose(i, text) {
 function finish() {
   if (current !== 'ep1') {
     const p = document.createElement('p');
-    const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Back to episodes';
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = 'Back to the episode list';
     b.addEventListener('click', showHome); p.appendChild(b); choicesEl.appendChild(p);
     return;
   }
@@ -119,11 +153,11 @@ function finish() {
 
 $('copy-code').addEventListener('click', async () => {
   const msg = $('copy-message');
-  try { await navigator.clipboard.writeText(lastCode); msg.textContent = 'Copied.'; }
+  try { await navigator.clipboard.writeText(lastCode); msg.textContent = 'Copied'; }
   catch (e) {
     const r = document.createRange(); r.selectNodeContents($('save-code'));
     const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
-    msg.textContent = 'Selected. Copy it with your device’s copy command.';
+    msg.textContent = 'The code is selected. Use your device to copy it.';
   }
 });
 
@@ -145,7 +179,7 @@ document.querySelectorAll('[data-start]').forEach(btn => btn.addEventListener('c
   if (ep === 'ep3_preview' && codeInput.value.trim()) {
     const d = decode(codeInput.value);
     if (!d.ok) {
-      codeMsg.textContent = d.error + ' You can clear the box and start without a code.';
+      codeMsg.textContent = d.error + ' Clear the box to start without a code.';
       codeMsg.className = 'message error';
       codeInput.focus();
       return;
