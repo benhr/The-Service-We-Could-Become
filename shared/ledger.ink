@@ -29,6 +29,7 @@ VAR confidence = 4
 VAR nav_fate = 0            // 0 unset, 1 retained, 2 reformed, 3 repositioned, 4 repurposed
 VAR ep1_ams_contacted = 0   // 0 no, 1 yes
 VAR ep1_reason = 0          // 0 unset, 1 evidence, 2 relationships, 3 visibility
+VAR ep1_board = 0           // 0 unset, 1 approved, 2 approved with conditions, 3 deferred
 
 // Episode 3 flags (provisional)
 VAR brief_basis = 0

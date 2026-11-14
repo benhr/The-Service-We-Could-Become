@@ -14,6 +14,7 @@ const LEDGER = [...DONE, ...TRACKS.map(t => t.name), ...FLAGS.map(f => f[0])];
 
 const problems = [];
 const endings = new Map();
+const outcomes = new Map();
 let paths = 0, maxWords = 0, maxPath = null;
 
 function readLedger(story) {
@@ -36,6 +37,11 @@ function walk(story, trail, words) {
     for (const t of TRACKS) if (s[t.name] < 0 || s[t.name] > 7) problems.push({ trail, error: `${t.name}=${s[t.name]}` });
     if (!s.done_ep1) problems.push({ trail, error: 'ended without done_ep1' });
     if (!s.nav_fate) problems.push({ trail, error: 'ended without nav_fate' });
+    if (!s.ep1_board) problems.push({ trail, error: 'ended without ep1_board' });
+    const navs = story.variablesState['navs'];
+    if (navs < 0 || navs > 14) problems.push({ trail, error: `navs=${navs}` });
+    const key = `${['', 'retain', 'reform', 'reposition', 'repurpose'][s.nav_fate]} / ${['', 'approved', 'conditions', 'deferred'][s.ep1_board]}`;
+    outcomes.set(key, (outcomes.get(key) || 0) + 1);
     const code = encode(s);
     const back = decode(code);
     if (!back.ok) problems.push({ trail, error: 'code failed: ' + back.error });
@@ -56,6 +62,8 @@ const t0 = Date.now();
 const s1 = new Story(load('ep1'));
 walk(s1, [], 0);
 console.log(`Episode 1: ${paths} paths walked in ${((Date.now() - t0) / 1000).toFixed(1)}s, ${endings.size} distinct end states`);
+console.log('Recommendation and board outcome, by number of paths:');
+for (const [k, v] of [...outcomes].sort()) console.log(`  ${k}: ${v}`);
 console.log(`Longest path: ${maxWords} words of narration`);
 console.log('  ' + maxPath.join(' | '));
 

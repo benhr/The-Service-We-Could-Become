@@ -15,7 +15,8 @@ export const TRACKS = [
   { name: 'confidence', def: 4 },
 ];
 
-// Flag registry, in bit order. 37 bits used of 40.
+// Flag registry, in bit order. 39 bits used of 40.
+// ep1_board was added at the end (November 2026) so earlier codes still decode.
 export const FLAGS = [
   ['nav_fate', 3], ['ep1_ams_contacted', 1], ['ep1_reason', 2],
   ['ep2_reserved', 2],
@@ -26,6 +27,7 @@ export const FLAGS = [
   ['plan_author', 2], ['plan_stops_something', 1], ['plan_ams_consulted', 1], ['plan_shared_before_board', 1],
   ['ep8_reserved', 2],
   ['response_stance', 2], ['outside_mandate_voices', 2], ['coalition_built', 1], ['staff_told_first', 1],
+  ['ep1_board', 2],
 ];
 const FLAG_BITS = 40;
 
