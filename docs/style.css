@@ -101,10 +101,10 @@ button.btn.primary { background: var(--ink); color: var(--ground); }
 button.btn.primary:hover { background: var(--ground); color: var(--ink); }
 
 /* Home */
-.episode, .section { margin-top: var(--xl); }
+.module, .section { margin-top: var(--xl); }
 .section h2 { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--md); }
-.section p, .episode p { max-width: 38em; }
-.episode h2 { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--sm); }
+.section p, .module p { max-width: 38em; }
+.module h2 { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--sm); }
 label { display: block; font-size: var(--t-note); font-weight: 500; color: var(--ink-2); margin: var(--md) 0 var(--xs); }
 input[type="text"] {
   font: inherit; width: 100%; max-width: 26rem; padding: var(--sm) 0;
@@ -114,7 +114,7 @@ input[type="text"] {
 .message.error { color: var(--ink); padding-left: var(--md); border-left: 3px solid var(--alert); }
 
 /* Story */
-#episode-title { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--xl); }
+#module-title { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--xl); }
 #story .narr { font-family: var(--reading); font-size: var(--t-body); line-height: 1.6; font-feature-settings: "onum" 1, "pnum" 1; }
 #story h2 { font-size: var(--t-h3); line-height: 1.3; margin: var(--xl) 0 var(--md); }
 #story > .row:first-child h2 { margin-top: 0; }

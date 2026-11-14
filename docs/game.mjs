@@ -1,11 +1,11 @@
-// Plays an episode in the browser with inkjs, and handles the save code.
-// No analytics, no cookies, no network calls beyond loading the episode file.
+// Plays a module in the browser with inkjs, and handles the save code.
+// No analytics, no cookies, no network calls beyond loading the module file.
 import { encode, decode, DONE, TRACKS, FLAGS } from './codec.mjs';
 
 const LEDGER = [...DONE, ...TRACKS.map(t => t.name), ...FLAGS.map(f => f[0])];
 const TITLES = {
-  ep1: 'Episode 1: Four partners, one inherited program',
-  ep3_preview: 'Episode 3: opening only',
+  module1: 'Module 1: Four partners, one inherited program',
+  module2_opening: 'Module 2: opening only',
 };
 
 const $ = id => document.getElementById(id);
@@ -43,7 +43,7 @@ async function start(ep, ledgerState) {
     story.variablesState['code_loaded'] = true;
   }
   storyEl.innerHTML = ''; choicesEl.innerHTML = ''; endingEl.hidden = true; docBlock = null; promptCount = 0;
-  $('episode-title').textContent = TITLES[ep] || ep;
+  $('module-title').textContent = TITLES[ep] || ep;
   home.hidden = true; play.hidden = false; $('tools').hidden = false;
   history.replaceState(null, '', '#' + ep);
   window.scrollTo(0, 0);
@@ -137,9 +137,9 @@ function choose(i, text) {
 }
 
 function finish() {
-  if (current !== 'ep1') {
+  if (current !== 'module1') {
     const p = document.createElement('p');
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = 'Back to the episode list';
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = 'Back to the list of modules';
     b.addEventListener('click', showHome); p.appendChild(b); choicesEl.appendChild(p);
     return;
   }
@@ -161,10 +161,10 @@ $('copy-code').addEventListener('click', async () => {
   }
 });
 
-$('go-ep3').addEventListener('click', () => {
+$('go-m2').addEventListener('click', () => {
   codeInput.value = lastCode;
   const d = decode(lastCode);
-  start('ep3_preview', d.ok ? d.state : null);
+  start('module2_opening', d.ok ? d.state : null);
 });
 $('back-home').addEventListener('click', showHome);
 $('home-link').addEventListener('click', e => { e.preventDefault(); showHome(); });
@@ -176,7 +176,7 @@ codeInput.addEventListener('input', () => {
 
 document.querySelectorAll('[data-start]').forEach(btn => btn.addEventListener('click', () => {
   const ep = btn.dataset.start;
-  if (ep === 'ep3_preview' && codeInput.value.trim()) {
+  if (ep === 'module2_opening' && codeInput.value.trim()) {
     const d = decode(codeInput.value);
     if (!d.ok) {
       codeMsg.textContent = d.error + ' Clear the box to start without a code.';
@@ -190,6 +190,6 @@ document.querySelectorAll('[data-start]').forEach(btn => btn.addEventListener('c
   start(ep, null);
 }));
 
-// Open straight into an episode from a link such as index.html#ep1
+// Open straight into a module from a link such as index.html#module1
 const hash = location.hash.replace('#', '');
 if (TITLES[hash]) start(hash, null);

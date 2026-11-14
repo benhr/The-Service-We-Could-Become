@@ -1,13 +1,13 @@
-// Episode 1 (Week 1): Four partners, one inherited program
+// Module 1 (course Weeks 1 and 2): Four partners, one inherited program
 // Prototype draft, version 0.3, November 2026. About 15 minutes.
 // Scenes involving the Aboriginal Medical Service are a first draft for review
 // by an Aboriginal colleague.
 //
-// Stakes in this episode:
+// Stakes in this module:
 //   - the people you don't meet act on their own (Wednesday evening emails)
 //   - waiting costs staff (Clinical Navigators leave during the week)
-//   - the board can approve, attach conditions or defer (ep1_board)
-//   - the outcome changes what is available in Episode 3
+//   - the board can approve, attach conditions or defer (m1_board)
+//   - the outcome changes what is available in Module 2
 //
 // Tags used by the web page:
 //   # h            a day heading
@@ -18,7 +18,7 @@
 
 INCLUDE ../shared/ledger.ink
 
-// Episode-local state (not carried in the save code)
+// Module-local state (not carried in the save code)
 VAR read_eval = false
 VAR asked_rules = false
 VAR met_rafferty = false
@@ -166,7 +166,7 @@ You have 212 unread emails. Three are about the program, from people you didn't 
 }
 The Tallowfield Aboriginal Medical Service nominates one of the Authority's board members, but you haven't met anyone from the Service yet. Its CEO is Dianne Cooper. The Service has its own board and runs its own clinics in Eastlake and Cobb's Crossing.
 * [Write a short note to the Service's CEO]
-    ~ ep1_ams_contacted = 1
+    ~ m1_ams_contacted = 1
     You write to Dianne Cooper, introduce yourself and ask whether the Service would be willing to meet.
 * [Ask Ruth to arrange a meeting]
     "I'll ask," Ruth says. "Their diary is fuller than ours."
@@ -238,11 +238,11 @@ Ruth has drafted the paper and left a gap for the recommendation.
 = reason
 Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that first."
 * [The evidence]
-    ~ ep1_reason = 1
+    ~ m1_reason = 1
 * [The relationships the Authority needs]
-    ~ ep1_reason = 2
+    ~ m1_reason = 2
 * [What the board needs to see]
-    ~ ep1_reason = 3
+    ~ m1_reason = 3
 - The paper goes to the board secretary that afternoon.
 -> apply_effects
 
@@ -251,40 +251,40 @@ Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that
 { nav_fate:
 - 1:
     { met_karimi || read_eval:
-        ~ ep1_board = 1
+        ~ m1_board = 1
     - else:
-        ~ ep1_board = 2
+        ~ m1_board = 2
     }
 - 2:
     { met_nguyen || met_karimi:
-        ~ ep1_board = 1
+        ~ m1_board = 1
     - else:
-        ~ ep1_board = 2
+        ~ m1_board = 2
     }
 - 3:
     { met_rafferty:
-        ~ ep1_board = 1
+        ~ m1_board = 1
     - else:
-        ~ ep1_board = 2
+        ~ m1_board = 2
     }
 - 4:
     { kept_after_warning:
-        ~ ep1_board = 3
+        ~ m1_board = 3
     - else:
-        ~ ep1_board = 1
+        ~ m1_board = 1
     }
 }
 // What happens to the team
-{ ep1_board == 3:
+{ m1_board == 3:
     ~ navs = navs - 3
 }
-{ ep1_board == 2:
+{ m1_board == 2:
     ~ navs = navs - 1
 }
 { nav_fate == 3 && navs > 8:
     ~ navs = 8
 }
-{ nav_fate == 4 && ep1_board == 1:
+{ nav_fate == 4 && m1_board == 1:
     ~ navs = 0
 }
 
@@ -298,11 +298,11 @@ Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that
 - 1:
     ~ d_phn += 1
     ~ d_prim += 1
-    { ep1_board == 2:
+    { m1_board == 2:
         ~ d_conf -= 1
     }
 - 2:
-    { ep1_board == 1:
+    { m1_board == 1:
         ~ d_prim += 1
         ~ d_comm += 1
     - else:
@@ -320,7 +320,7 @@ Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that
     ~ d_hosp += 1
     ~ d_prim -= 1
     ~ d_comm -= 1
-    { ep1_board == 3:
+    { m1_board == 3:
         ~ d_phn -= 3
         ~ d_conf -= 1
     - else:
@@ -339,7 +339,7 @@ Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that
     ~ d_prim -= 1
 }
 // The reason given
-{ ep1_reason:
+{ m1_reason:
 - 1:
     { met_karimi || read_eval:
         ~ d_conf += 1
@@ -372,7 +372,7 @@ Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that
 -> friday
 
 === function cap(d)
-// No track moves by more than 3 in one episode.
+// No track moves by more than 3 in one module.
 { d > 3:
     ~ return 3
 }
@@ -393,28 +393,28 @@ The board meets in the morning. These arrive over the afternoon.
 
 = friday_retain
 Email from Dr Judith Aldous, Chair # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     The board approved the 12-month extension and the evaluation. There was some discussion about what we should expect to see at the end of the year, and I said you would bring a proposal to the March meeting. # doc
 - else:
     The board agreed to extend the program for six months, not twelve. Members weren't convinced the evaluation showed what the paper said it did, and want an evaluation plan before committing further. Could you bring one to the March meeting? # doc
 }
 ~ aldous_reason_line()
 Email from Priya Raman, CEO, PHN # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Thanks for keeping the program in primary care. We're happy to continue our share for another 12 months under the current contract, and I'll let our board know. # doc
 - else:
     We'll continue our share for six months. After that I'll need to take it back to my board, and they'll want to see the evaluation plan too. # doc
 }
 ~ ams_reply()
 Board paper, budget line 4.12 # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Clinical Navigator Program: extended 12 months, evaluation component added. $2.45m. # doc
 - else:
     Clinical Navigator Program: extended six months, subject to an evaluation plan. $1.15m. # doc
 }
 ~ navs_line()
 Bev, 71, Cobb's Crossing # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     "My navigator rings on Tuesdays. She knows my five tablets better than the chemist does, and she sorted out the community transport to my heart clinic. I don't know who pays for her, but I hope they keep it going." # doc
 - else:
     "My navigator rang to say she's leaving. They've given me someone new, and she's very nice, but she doesn't know my tablets yet. I hope this one stays." # doc
@@ -423,7 +423,7 @@ Bev, 71, Cobb's Crossing # doc-head
 
 = friday_reform
 Email from Dr Judith Aldous, Chair # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     The board approved an eight-week design period, with funding to continue while it runs. Members supported a simpler referral pathway but want to see it described before they fund it beyond that. Could you bring the new pathway, the interpreting costs and a timeline to the next meeting? # doc
 - else:
     The board approved the eight-week design period but not funding beyond the current agreement. A member asked who had been involved in the redesign, and the board wants the GP clinical council consulted before anything more is funded. # doc
@@ -438,14 +438,14 @@ Email from Dr Judith Aldous, Chair # doc-head
 }
 ~ ams_reply()
 Board paper, budget line 4.12 # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Clinical Navigator Program: redesign, interpreting costs added. $2.38m. # doc
 - else:
     Clinical Navigator Program: redesign; funded to the end of the current agreement only. $0.77m. # doc
 }
 ~ navs_line()
 Mr Lau, 78, Eastlake # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     "Before, letters came that I could not read. Now I ring the navigator and she books the Cantonese interpreter. Last week I went to the heart clinic by myself for the first time." # doc
 - else:
     "The navigator says things might change after Christmas. She books my interpreter. I hope I can still ring her." # doc
@@ -454,21 +454,21 @@ Mr Lau, 78, Eastlake # doc-head
 
 = friday_reposition
 Email from Dr Judith Aldous, Chair # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     The board approved moving the program to the hospital. The PHN has told us its share can't go to a hospital-based program, so the LHD will fund the team from its own budget. Dr McAllister has already emailed to thank us. # doc
 - else:
     The board approved the move to the hospital in principle, subject to the LHD agreeing to fund it. The PHN has told us its share can't go to a hospital-based program. Mr Rafferty said he would need to look at his budget. # doc
 }
 ~ aldous_reason_line()
 Email from Simon Rafferty, Chief Executive, LHD # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Thanks, this will help. We'll fund eight positions from the LHD budget, which is as far as I can stretch. Could we also talk about weekend cover in ED? Fiona has some numbers. # doc
 - else:
     I'm happy to look at it, but I can't promise anything before the new financial year. It would have helped to talk before the paper went to the board. # doc
 }
 ~ ams_reply()
 Board paper, budget line 4.12 # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Clinical Navigator Program: transferred to Tallowfield Hospital, LHD-funded. $1.3m. The PHN's $1.6m returns to primary care commissioning. # doc
 - else:
     Clinical Navigator Program: transfer to Tallowfield Hospital approved in principle. Funding not confirmed. # doc
@@ -484,14 +484,14 @@ Bev, 71, Cobb's Crossing # doc-head
 
 = friday_repurpose
 Email from Dr Judith Aldous, Chair # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     The board approved the new discharge team, funded from the LHD's share. Ms Raman abstained, and told the board the PHN will recommission its $1.6 million elsewhere in primary care. Could you let me know how we'll support the 620 clients through the change? # doc
 - else:
     The board deferred the recommendation. Ms Raman told the meeting that the PHN's funds can't be used for a hospital team, and members weren't willing to approve a team without knowing how it would be paid for. The program continues for now, but nothing has been decided. Could we talk on Monday? # doc
 }
 ~ aldous_reason_line()
 Letter from Priya Raman, CEO, PHN # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Dear Chief Executive, as I said when we met, the PHN's share of the Clinical Navigator Program cannot fund hospital services. The PHN will recommission the $1.6 million in primary care, and will write to the GPs of the program's clients to explain what happens next. # doc
 - else:
     Dear Chief Executive, I am writing about the $1.6 million in Commonwealth funding that the PHN has allocated to the Clinical Navigator Program. Under our funding agreement these funds cannot be used for hospital services, and the PHN reserves its position on how they are used. I have copied this letter to the Department. # doc
@@ -499,14 +499,14 @@ Letter from Priya Raman, CEO, PHN # doc-head
 }
 ~ ams_reply()
 Board paper, budget lines 4.12 and 4.13 # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     Clinical Navigator Program: closes in four months. Hospital discharge team: established, $0.7m (LHD). The PHN's $1.6m to be recommissioned in primary care. # doc
 - else:
     Clinical Navigator Program: decision deferred. The PHN's $1.6m share on hold. # doc
 }
 ~ navs_line()
 Bev, 71, Cobb's Crossing # doc-head
-{ ep1_board == 1:
+{ m1_board == 1:
     "I got a letter saying the program was finishing and I should talk to my GP. So I rang him, and he rang someone at your office, and nobody seemed to know who I should talk to now." # doc
 - else:
     "My navigator has left, and so has the one before her. Someone rang to say the program is still going, but nobody can tell me for how long." # doc
@@ -521,13 +521,13 @@ Bev, 71, Cobb's Crossing # doc-head
 }
 
 === function ams_reply()
-{ ep1_ams_contacted == 1:
+{ m1_ams_contacted == 1:
     Email from Dianne Cooper, CEO, Tallowfield Aboriginal Medical Service # doc-head
     Thanks for your note. We'd be glad to meet once the Authority has worked out what it wants to talk with us about. Where decisions affect our community, we'd ask that you bring them to us before they're made, not after. # doc
 }
 
 === function aldous_reason_line()
-{ ep1_reason:
+{ m1_reason:
 - 1:
     { met_karimi || read_eval:
         Thank you for being upfront about the limits of the evaluation. Members appreciated it. # doc
@@ -543,7 +543,7 @@ Bev, 71, Cobb's Crossing # doc-head
 }
 
 === debrief ===
-~ done_ep1 = true
+~ done_m1 = true
 A week later # h
 {
 - navs == 0: The navigators who stayed have started in the discharge team. Leila Karimi has taken a job with another LHD.

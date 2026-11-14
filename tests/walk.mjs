@@ -1,7 +1,7 @@
-// Automated playthroughs. Walks every choice path in Episode 1 and checks that each
+// Automated playthroughs. Walks every choice path in Module 1 and checks that each
 // reaches the end without errors, tracks stay within 0 to 7, the second look appears
-// at most once, and the save code round-trips. Then plays the Episode 3 preview with
-// codes from every Episode 1 ending.
+// at most once, and the save code round-trips. Then plays the Module 2 opening with
+// codes from every Module 1 ending.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -35,12 +35,12 @@ function walk(story, trail, words) {
     if (words > maxWords) { maxWords = words; maxPath = trail; }
     const s = readLedger(story);
     for (const t of TRACKS) if (s[t.name] < 0 || s[t.name] > 7) problems.push({ trail, error: `${t.name}=${s[t.name]}` });
-    if (!s.done_ep1) problems.push({ trail, error: 'ended without done_ep1' });
+    if (!s.done_m1) problems.push({ trail, error: 'ended without done_m1' });
     if (!s.nav_fate) problems.push({ trail, error: 'ended without nav_fate' });
-    if (!s.ep1_board) problems.push({ trail, error: 'ended without ep1_board' });
+    if (!s.m1_board) problems.push({ trail, error: 'ended without m1_board' });
     const navs = story.variablesState['navs'];
     if (navs < 0 || navs > 14) problems.push({ trail, error: `navs=${navs}` });
-    const key = `${['', 'retain', 'reform', 'reposition', 'repurpose'][s.nav_fate]} / ${['', 'approved', 'conditions', 'deferred'][s.ep1_board]}`;
+    const key = `${['', 'retain', 'reform', 'reposition', 'repurpose'][s.nav_fate]} / ${['', 'approved', 'conditions', 'deferred'][s.m1_board]}`;
     outcomes.set(key, (outcomes.get(key) || 0) + 1);
     const code = encode(s);
     const back = decode(code);
@@ -59,32 +59,32 @@ function walk(story, trail, words) {
 }
 
 const t0 = Date.now();
-const s1 = new Story(load('ep1'));
+const s1 = new Story(load('module1'));
 walk(s1, [], 0);
-console.log(`Episode 1: ${paths} paths walked in ${((Date.now() - t0) / 1000).toFixed(1)}s, ${endings.size} distinct end states`);
+console.log(`Module 1: ${paths} paths walked in ${((Date.now() - t0) / 1000).toFixed(1)}s, ${endings.size} distinct end states`);
 console.log('Recommendation and board outcome, by number of paths:');
 for (const [k, v] of [...outcomes].sort()) console.log(`  ${k}: ${v}`);
 console.log(`Longest path: ${maxWords} words of narration`);
 console.log('  ' + maxPath.join(' | '));
 
-// Episode 3 preview: with no code, and with every distinct Episode 1 ending.
-let ep3runs = 0;
+// Module 2 opening: with no code, and with every distinct Module 1 ending.
+let m2runs = 0;
 const run3 = (state) => {
-  const st = new Story(load('ep3_preview'));
+  const st = new Story(load('module2_opening'));
   if (state) { for (const k of LEDGER) st.variablesState[k] = state[k]; st.variablesState.code_loaded = true; }
   let text = '';
   while (st.canContinue) text += st.Continue();
-  if (st.currentChoices.length) problems.push({ error: 'ep3 preview offered choices' });
-  if (st.currentErrors && st.currentErrors.length) problems.push({ error: 'ep3: ' + st.currentErrors });
-  ep3runs++;
+  if (st.currentChoices.length) problems.push({ error: 'Module 2 opening offered choices' });
+  if (st.currentErrors && st.currentErrors.length) problems.push({ error: 'Module 2: ' + st.currentErrors });
+  m2runs++;
   return text;
 };
 run3(null);
 for (const code of endings.keys()) run3(decode(code).state);
-console.log(`Episode 3 preview: ${ep3runs} runs`);
+console.log(`Module 2 opening: ${m2runs} runs`);
 
 // Codec: typo detection and random round trips.
-const sample = encode({ ...defaults(), done_ep1: true, nav_fate: 2, ep1_reason: 1 });
+const sample = encode({ ...defaults(), done_m1: true, nav_fate: 2, m1_reason: 1 });
 let caught = 0, total = 0;
 const ALPH = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 const raw = sample.replace(/^SWC-/, '').replace(/-/g, '');

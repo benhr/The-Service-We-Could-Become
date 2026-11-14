@@ -1,12 +1,12 @@
 // Save code: 80 bits as 16 Crockford base32 characters, shown as SWC-XXXX-XXXX-XXXX-XXXX.
-// Layout: format version (3) | episodes completed (10) | 7 tracks x 3 | flags (40) | CRC-6 (6).
+// Layout: format version (3) | modules completed (10, five used) | 7 tracks x 3 | flags (40) | CRC-6 (6).
 // The code carries game decisions only. Nothing identifies a person and nothing is sent anywhere.
 
 export const FORMAT_VERSION = 1;
 const ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 
-export const DONE = ['done_ep1', 'done_ep2', 'done_ep3', 'done_ep4', 'done_ep5',
-  'done_ep6', 'done_ep7', 'done_ep8', 'done_ep9', 'done_ep10'];
+export const DONE = ['done_m1', 'done_r2', 'done_m2', 'done_r4', 'done_m3',
+  'done_r6', 'done_m4', 'done_r8', 'done_m5', 'done_r10'];
 
 export const TRACKS = [
   { name: 'trust_hospital', def: 4 }, { name: 'trust_primary', def: 4 },
@@ -16,18 +16,19 @@ export const TRACKS = [
 ];
 
 // Flag registry, in bit order. 39 bits used of 40.
-// ep1_board was added at the end (November 2026) so earlier codes still decode.
+// m1_board was added at the end (November 2026) so earlier codes still decode.
+// Flags are grouped by module: m1 (Module 1), then reserved, Module 2, reserved, and so on.
 export const FLAGS = [
-  ['nav_fate', 3], ['ep1_ams_contacted', 1], ['ep1_reason', 2],
-  ['ep2_reserved', 2],
-  ['brief_basis', 2], ['ams_terms', 2], ['brief_names_unknowns', 1], ['ep3_consumers_consulted', 1],
-  ['ep4_reserved', 2],
+  ['nav_fate', 3], ['m1_ams_contacted', 1], ['m1_reason', 2],
+  ['reserved_a', 2],
+  ['brief_basis', 2], ['ams_terms', 2], ['brief_names_unknowns', 1], ['m2_consumers_consulted', 1],
+  ['reserved_b', 2],
   ['intake_path', 2], ['gp_council_involved', 1], ['allied_health_included', 1], ['named_the_losses', 1], ['intake_launched_early', 1],
-  ['ep6_reserved', 2],
+  ['reserved_c', 2],
   ['plan_author', 2], ['plan_stops_something', 1], ['plan_ams_consulted', 1], ['plan_shared_before_board', 1],
-  ['ep8_reserved', 2],
+  ['reserved_d', 2],
   ['response_stance', 2], ['outside_mandate_voices', 2], ['coalition_built', 1], ['staff_told_first', 1],
-  ['ep1_board', 2],
+  ['m1_board', 2],
 ];
 const FLAG_BITS = 40;
 

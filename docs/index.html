@@ -41,9 +41,10 @@
     <div class="row section">
       <div class="p">
         <h2>Decisions made with partners you can't direct</h2>
-        <p>Each episode puts you in a situation drawn from that week's topic and asks you to decide something with incomplete information, limited time and partners who have their own interests. There is no right answer. What you decide changes what happens next, in the episode and in later ones: who will work with you, what money and staff you have, and which options are still open.</p>
-        <p>Episodes take about 15 minutes. They are optional and not assessed, and nothing in tutorials depends on having played. Each one ends with questions to bring to your tutorial.</p>
-        <p>At the end of each episode you get a save code. Enter it at the start of the next episode and the story picks up from your decisions. Without a code, an episode starts from a typical position.</p>
+        <p>The game has five modules, one for each module of the course. Module 1 covers Weeks 1 and 2, Module 2 covers Weeks 3 and 4, and so on to Module 5, which covers Weeks 9 and 10.</p>
+        <p>Each module puts you in a situation drawn from that part of the course and asks you to decide something with incomplete information, limited time and partners who have their own interests. There is no right answer. What you decide changes what happens next, in the module and in later ones: who will work with you, what money and staff you have, and which options are still open.</p>
+        <p>Each module takes about 15 minutes. They are optional and not assessed, and nothing in tutorials depends on having played. Each one ends with questions to bring to your tutorial.</p>
+        <p>At the end of each module you get a save code. Enter it at the start of the next module and the story picks up from your decisions. Without a code, a module starts from a typical position.</p>
       </div>
       <div class="m"></div>
     </div>
@@ -61,44 +62,44 @@
       </div>
     </div>
 
-    <div class="row episode">
+    <div class="row module">
       <div class="p">
-        <h2>Episode 1: Four partners, one inherited program</h2>
+        <h2>Module 1: Four partners, one inherited program</h2>
         <p>A program the Authority inherited runs out of money in four months, and the board wants a recommendation by Friday. About 15 minutes.</p>
-        <button type="button" class="btn primary" data-start="ep1">Play Episode 1</button>
+        <button type="button" class="btn primary" data-start="module1">Play Module 1</button>
       </div>
-      <div class="m">Week 1</div>
+      <div class="m">Weeks 1 and 2</div>
     </div>
 
-    <div class="row episode">
+    <div class="row module">
       <div class="p">
-        <h2>Episode 3: opening only</h2>
-        <p>Only the opening is written. Enter the code from the end of Episode 1 to see how the story picks up your decisions, or leave the box empty to see what a new player reads.</p>
-        <label for="code-input">Code from Episode 1 (optional)</label>
+        <h2>Module 2: opening only</h2>
+        <p>Only the opening is written. Enter the code from the end of Module 1 to see how the story picks up your decisions, or leave the box empty to see what a new player reads.</p>
+        <label for="code-input">Code from Module 1 (optional)</label>
         <input id="code-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="code-message">
         <p id="code-message" class="message" role="status"></p>
-        <button type="button" class="btn primary" data-start="ep3_preview">Start Episode 3</button>
+        <button type="button" class="btn primary" data-start="module2_opening">Start Module 2</button>
       </div>
-      <div class="m">Week 3</div>
+      <div class="m">Weeks 3 and 4</div>
     </div>
   </section>
 
-  <section id="play" hidden aria-labelledby="episode-title">
-    <div class="row"><div class="p"><h1 id="episode-title"></h1></div></div>
+  <section id="play" hidden aria-labelledby="module-title">
+    <div class="row"><div class="p"><h1 id="module-title"></h1></div></div>
     <div id="story"></div>
     <div class="row"><div class="p"><div id="choices" role="group" aria-label="Your choices"></div></div></div>
     <div class="row" id="ending" hidden>
       <div class="p">
         <h2>Your save code</h2>
-        <p>Enter this code at the start of the next episode and the story will pick up what you decided. It holds your game decisions and nothing else.</p>
+        <p>Enter this code at the start of the next module and the story will pick up what you decided. It holds your game decisions and nothing else.</p>
         <p class="code"><output id="save-code"></output></p>
         <div class="actions">
           <button type="button" class="btn" id="copy-code">Copy the code</button>
           <span id="copy-message" class="message" role="status"></span>
         </div>
         <div class="actions">
-          <button type="button" class="btn primary" id="go-ep3">Go to the Episode 3 opening with this code</button>
-          <button type="button" class="btn" id="back-home">Back to the episode list</button>
+          <button type="button" class="btn primary" id="go-m2">Go to the Module 2 opening with this code</button>
+          <button type="button" class="btn" id="back-home">Back to the list of modules</button>
         </div>
       </div>
     </div>
