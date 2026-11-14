@@ -2,7 +2,7 @@
 
 A short narrative serious game for PHCM9391 Health Organisations, Strategy and Change (UNSW), written in ink and played in the browser with inkjs.
 
-This repository holds a working prototype for the research team: Episode 1 in full, and the opening of Episode 3, which reads the save code from Episode 1. The text is a first draft. Scenes involving the Aboriginal Medical Service are placeholders pending review by Aboriginal colleagues.
+This repository holds a working prototype for the research team: Episode 1 in full, and the opening of Episode 3, which reads the save code from Episode 1. The text is a first draft. Scenes involving the Aboriginal Medical Service are a first draft for review by an Aboriginal colleague.
 
 ## Layout
 

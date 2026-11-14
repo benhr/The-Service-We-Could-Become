@@ -1,7 +1,7 @@
 // Episode 1 (Week 1): Four partners, one inherited program
 // Prototype draft, revised November 2026. Not yet edited by Ben for credibility.
-// Scenes involving the Aboriginal Medical Service are placeholders pending
-// review by Aboriginal colleagues.
+// Scenes involving the Aboriginal Medical Service are a first draft for review
+// by an Aboriginal colleague.
 //
 // Tags used by the web page:
 //   # h            a day heading
@@ -58,7 +58,7 @@ Hospital admissions among enrolled clients fell by 11% in the 12 months after en
 Most clients were enrolled soon after a hospital admission. Admissions often fall after an admission without any program. # doc
 There was no comparison group. # doc
 Clients and GPs rated the program highly. Few hospital clinicians knew it existed. # doc
-Not yet written, pending review by Aboriginal colleagues: one line on how many clients identify as Aboriginal or Torres Strait Islander, and what is not known about that number. # placeholder
+Nine of the 620 clients identify as Aboriginal or Torres Strait Islander. The evaluation did not look at whether that is more or fewer than would be expected for the region. # doc
 -> monday_choices
 
 === week ===
@@ -129,21 +129,21 @@ Leila Karimi, the program manager, shows you around Eastlake Community Health Ce
 You sit in while a navigator goes through a client's letters with her: hospital, Centrelink, pharmacy, and two she can't place. The navigator books an Arabic interpreter for Thursday's appointment and fills in a community transport form.
 "The evaluation is weaker than people think," Karimi says. "Most clients were enrolled straight after a hospital admission, and admissions tend to drop after that anyway. There was no comparison group, because nobody funded one. I want the program kept, and I want it evaluated properly."
 Haddad tells you about a family who missed a specialist appointment because the letter was in English and nobody at home could read it. A navigator found it on the fridge five weeks later.
-Not yet written, pending review by Aboriginal colleagues: Karimi mentions the program's Aboriginal clients, and that nobody asked the Aboriginal Medical Service whether it wanted this program. # placeholder
+"Nine of our clients are Aboriginal," Karimi says. "I'd have expected more for this region, but I don't really know. I was told the Aboriginal Medical Service runs its own care coordination. Nobody asked them whether they wanted this program, or whether it would work for their clients."
 "The program was set up to reduce admissions, because that was what the partnership could get funded," Karimi says as you leave. "Most of what the navigators do each day is something else, and the evaluation didn't measure any of it."
 -> week
 
 === wednesday_evening ===
 Wednesday evening # h
 You have 212 unread emails.
-Not yet written, pending review by Aboriginal colleagues: a short scene in which you decide whether to contact the Tallowfield Aboriginal Medical Service (working name) this week. # placeholder
+The Tallowfield Aboriginal Medical Service nominates one of the Authority's board members, but you haven't met anyone from the Service yet. Its CEO is Dianne Cooper. The Service has its own board and runs its own clinics in Eastlake and Cobb's Crossing.
 * [Write a short note to the Service's CEO]
     ~ ep1_ams_contacted = 1
-    You write a short note and send it.
+    You write to Dianne Cooper, introduce yourself and ask whether the Service would be willing to meet.
 * [Ask Ruth to arrange a meeting]
     "I'll ask," Ruth says. "Their diary is fuller than ours."
 * [Leave it until the Authority has a plan]
-    You flag the email to come back to.
+    You add it to your list for next month.
 - -> thursday
 
 === thursday ===
@@ -308,6 +308,7 @@ The board meets in the morning. These arrive over the afternoon.
 Email from Dr Judith Aldous, Chair # doc-head
 The board approved the 12-month extension and the evaluation. There was some discussion about what we should expect to see at the end of the year, and I said you would bring a proposal to the March meeting. # doc
 ~ aldous_reason_line()
+~ ams_reply()
 Email from Priya Raman, CEO, PHN # doc-head
 Thanks for keeping the navigator program in primary care. We're happy to continue our share for another 12 months under the current contract, and I'll let our board know. # doc
 Board paper, budget line 4.12 # doc-head
@@ -323,6 +324,7 @@ The board approved an eight-week design period. Members supported a simpler refe
     One member asked who had been involved in the redesign. I'd like a fuller answer next time. # doc
 }
 ~ aldous_reason_line()
+~ ams_reply()
 { met_nguyen:
     Email from Dr Tom Nguyen # doc-head
     Happy to trial the phone referral at our practice and a couple of others. If it's one number and someone answers it, I think most GPs will use it. # doc
@@ -340,6 +342,7 @@ Mr Lau, 78, Eastlake # doc-head
 Email from Dr Judith Aldous, Chair # doc-head
 The board approved moving the program to the hospital. Members noted the PHN's concerns about its funding and asked for a written agreement with the LHD before anything changes. Dr McAllister has already emailed to thank us. # doc
 ~ aldous_reason_line()
+~ ams_reply()
 Email from Simon Rafferty, Chief Executive, LHD # doc-head
 Thanks, this will help. Could we also talk about weekend cover in ED? Fiona has some numbers. # doc
 Board paper, budget line 4.12 # doc-head
@@ -356,6 +359,7 @@ Bev, 71, Cobb's Crossing # doc-head
 Email from Dr Judith Aldous, Chair # doc-head
 The board approved the new discharge team. Members liked that it should help with patient flow. Ms Raman abstained. Could you let me know how the PHN intends to respond before the Minister's office asks me? # doc
 ~ aldous_reason_line()
+~ ams_reply()
 Letter from Priya Raman, CEO, PHN # doc-head
 Dear Chief Executive, I am writing about the $1.6 million in Commonwealth funding that the PHN has allocated to the Care Navigator Program. Under our funding agreement these funds cannot be used for hospital services, and the PHN reserves its position on how they are used. I have copied this letter to the Department. # doc
 { kept_after_warning:
@@ -366,6 +370,12 @@ Care Navigator Program: closed. Hospital discharge team: established, $0.7m (LHD
 Bev, 71, Cobb's Crossing # doc-head
 "I got a letter saying the program had finished and I should talk to my GP. So I rang him, and he rang someone at your office, and nobody seemed to know who I should talk to now." # doc
 -> debrief
+
+=== function ams_reply()
+{ ep1_ams_contacted == 1:
+    Email from Dianne Cooper, CEO, Tallowfield Aboriginal Medical Service # doc-head
+    Thanks for your note. We'd be glad to meet once the Authority has worked out what it wants to talk with us about. Where decisions affect our community, we'd ask that you bring them to us before they're made, not after. # doc
+}
 
 === function aldous_reason_line()
 { ep1_reason:

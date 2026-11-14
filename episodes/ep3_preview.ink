@@ -30,7 +30,7 @@ Since July, most of the Authority's work has been on older people who keep comin
     Simon Rafferty has started ringing you before the LHD makes announcements.
 }
 { ep1_ams_contacted == 1:
-    Not yet written, pending review by Aboriginal colleagues: a follow-up to the note you sent the Aboriginal Medical Service in your first week. # placeholder
+    You met Dianne Cooper, CEO of the Aboriginal Medical Service, in August, after the note you sent in your first week. She has asked to see the Authority's draft priorities before the next meeting, not after it.
 }
 Dr Judith Aldous needs a one-page analysis of the region for the Authority's first quarterly report to the Minister's office. It's due on Friday.
 Ruth Okonkwo gives you the SWOT analysis that came over from the old partnership. The first strength listed is "strong stakeholder relationships". The first weakness is "limited resources".
