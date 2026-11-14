@@ -1,0 +1,129 @@
+/* Ulm design, Systematic theme: plain grotesque type, one restrained accent, a strict left edge. */
+:root {
+  --ink: #161616;
+  --muted: #4a4a4a;
+  --paper: #f6f5f1;
+  --sheet: #ffffff;
+  --rule: #c9c7c0;
+  --accent: #1d4f73;
+  --accent-ink: #ffffff;
+  --hold: #fff4d6;
+  --hold-edge: #8a6d1f;
+  --measure: 38rem;
+  --step: 1.5rem;
+  font-size: 100%;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, "Nimbus Sans", sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: var(--paper); padding: .5rem 1rem;
+}
+.skip:focus { left: 0; }
+
+.masthead, main, footer {
+  max-width: calc(var(--measure) + 2 * var(--step));
+  margin: 0 auto;
+  padding: 0 var(--step);
+}
+
+.masthead {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: .75rem; padding-top: 1.25rem; padding-bottom: 1.25rem;
+}
+.wordmark { margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+.wordmark a { color: var(--ink); text-decoration: none; }
+.tools { display: flex; gap: .5rem; }
+
+h1 {
+  font-size: 2rem; line-height: 1.15; letter-spacing: -0.02em;
+  font-weight: 700; margin: 1.5rem 0 1rem;
+}
+h2 { font-size: 1.3rem; line-height: 1.25; margin: 2.25rem 0 .75rem; font-weight: 700; }
+h3 { font-size: 1.05rem; margin: 0 0 .4rem; font-weight: 700; }
+p { margin: 0 0 1rem; max-width: var(--measure); }
+.lede { font-size: 1.2rem; line-height: 1.45; }
+
+a { color: var(--accent); }
+
+button {
+  font: inherit; color: var(--ink); background: var(--sheet);
+  border: 1px solid var(--ink); border-radius: 0;
+  padding: .55rem .9rem; cursor: pointer;
+}
+button:hover { background: var(--ink); color: var(--paper); }
+button:focus-visible, input:focus-visible, a:focus-visible, [tabindex="-1"]:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px;
+}
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.primary:hover { background: var(--ink); border-color: var(--ink); }
+
+.note {
+  border-left: 4px solid var(--accent);
+  background: var(--sheet);
+  padding: 1rem var(--step) .25rem;
+  margin: 1.5rem 0;
+}
+.note h2 { margin-top: 0; font-size: 1.05rem; }
+
+.episode { border-top: 1px solid var(--ink); padding: 1.25rem 0 1.5rem; }
+.episode:last-of-type { border-bottom: 1px solid var(--ink); }
+
+label { display: block; font-weight: 700; margin: .5rem 0 .3rem; }
+input[type="text"] {
+  font: inherit; font-family: "SF Mono", Menlo, Consolas, monospace;
+  width: 100%; max-width: 24rem; padding: .55rem .7rem;
+  border: 1px solid var(--ink); border-radius: 0; background: var(--sheet);
+}
+.message { min-height: 1.4em; font-size: .95rem; color: var(--muted); margin: .4rem 0 .8rem; }
+.message.error { color: #9b1c1c; }
+.message.good { color: #1f5d2c; }
+
+/* Story */
+#story h2 { margin-top: 2.5rem; }
+#story h2:first-child { margin-top: .5rem; }
+#story .chosen {
+  color: var(--muted); font-style: italic;
+  padding-left: .75rem; border-left: 2px solid var(--rule);
+}
+#story .doc {
+  background: var(--sheet); border-left: 4px solid var(--accent);
+  padding: .9rem var(--step) .2rem; margin: 0 0 1rem; max-width: var(--measure);
+}
+#story .doc h3 { font-size: .95rem; color: var(--accent); }
+#story .doc p { font-size: .98rem; }
+#story .placeholder {
+  background: var(--hold); border: 1px dashed var(--hold-edge);
+  padding: .75rem 1rem; font-size: .95rem;
+}
+#story .prompt { font-weight: 700; }
+#story .quiet { color: var(--muted); font-size: .95rem; }
+
+#choices { display: flex; flex-direction: column; gap: .5rem; margin: 1.25rem 0 2rem; max-width: var(--measure); }
+#choices button { text-align: left; width: 100%; line-height: 1.4; }
+
+#ending { margin-top: 2.5rem; }
+.code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 1.35rem; letter-spacing: .04em; margin: .5rem 0; }
+.next { margin-top: 1.25rem; }
+
+footer { margin-top: 3rem; padding-top: 1rem; padding-bottom: 2rem; color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 30rem) {
+  :root { --step: 1rem; }
+  h1 { font-size: 1.6rem; }
+  .lede { font-size: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }

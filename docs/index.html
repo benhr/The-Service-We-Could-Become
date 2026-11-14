@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Service We Could Become (prototype)</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <p class="wordmark"><a href="#" id="home-link">The Service We Could Become</a></p>
+  <div class="tools" id="tools" hidden>
+    <button type="button" id="text-smaller" aria-label="Smaller text">A&minus;</button>
+    <button type="button" id="text-larger" aria-label="Larger text">A+</button>
+    <button type="button" id="restart">Restart episode</button>
+  </div>
+</header>
+
+<main id="main">
+  <section id="home" aria-labelledby="home-title">
+    <h1 id="home-title">The Service We Could Become</h1>
+    <p class="lede">A short narrative game for PHCM9391 Health Organisations, Strategy and Change. You play the first chief executive of a new integrated care organisation in a fictional Australian region, and make decisions with partners you cannot direct.</p>
+
+    <div class="note">
+      <h2>About this prototype</h2>
+      <p>This is a working prototype for the research team, not a release for students. The text is a first draft and has not been edited for credibility. Names of places and organisations are working names.</p>
+      <p>Scenes involving the Aboriginal Medical Service appear as marked placeholders. They will be written only after review by Aboriginal colleagues.</p>
+      <p>The game collects no data. Nothing you choose leaves your browser.</p>
+    </div>
+
+    <h2>Episodes</h2>
+    <div class="episode">
+      <h3>Episode 1: Four partners, one inherited program</h3>
+      <p>Week 1. Your first week in the job. A program you inherited runs out of money in four months, and the board wants a recommendation by Friday. About ten minutes.</p>
+      <button type="button" class="primary" data-start="ep1">Play Episode 1</button>
+    </div>
+    <div class="episode">
+      <h3>Episode 3: opening only</h3>
+      <p>Week 3. Only the opening is written. Paste the code from the end of Episode 1 to see how the story remembers your decisions, or start without one to see what a new player reads.</p>
+      <label for="code-input">Save code from Episode 1 (optional)</label>
+      <input id="code-input" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="SWC-XXXX-XXXX-XXXX-XXXX" aria-describedby="code-message">
+      <p id="code-message" class="message" role="status"></p>
+      <button type="button" class="primary" data-start="ep3_preview">Start Episode 3 opening</button>
+    </div>
+  </section>
+
+  <section id="play" hidden aria-labelledby="episode-title">
+    <h1 id="episode-title"></h1>
+    <div id="story"></div>
+    <div id="choices" role="group" aria-label="Your choices"></div>
+    <div id="ending" hidden>
+      <h2>Your save code</h2>
+      <p>Copy this code. Paste it at the start of the next episode and the story will remember what you decided. The code holds only your game decisions.</p>
+      <p class="code"><output id="save-code"></output></p>
+      <button type="button" id="copy-code">Copy code</button>
+      <span id="copy-message" class="message" role="status"></span>
+      <p class="next"><button type="button" class="primary" id="go-ep3">Continue to the Episode 3 opening with this code</button></p>
+      <p><button type="button" id="back-home">Back to episodes</button></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Prototype for the research team, November 2026. Draft text, not for circulation.</p>
+  <p>Built with ink and inkjs by inkle, used under the <a href="inkjs-LICENSE.txt">MIT licence</a>.</p>
+</footer>
+
+<script src="ink.js"></script>
+<script type="module" src="game.mjs"></script>
+</body>
+</html>
