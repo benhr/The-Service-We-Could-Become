@@ -1,8 +1,8 @@
 /*
   Ulm Design System, version 2 tokens.
-  Choices: monochrome; reference grid; reading voice (the story is read straight
-  through, so narration is in Source Serif 4, while documents, choices and the
-  interface stay in the grotesque); documentary.
+  Choices: monochrome; reference grid; grotesque throughout (narration,
+  documents, choices and interface all in Inter, so the page reads as one
+  voice); documentary.
   The signal blue marks everything the player can press, and nothing else.
   Fonts are served from this site so the page makes no third-party requests.
 */
@@ -10,9 +10,6 @@
 @font-face { font-family: "Inter"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/inter-latin-400-normal.woff2") format("woff2"); }
 @font-face { font-family: "Inter"; font-weight: 500; font-style: normal; font-display: swap; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
 @font-face { font-family: "Inter"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/inter-latin-600-normal.woff2") format("woff2"); }
-@font-face { font-family: "Source Serif 4"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/source-serif-4-latin-400-normal.woff2") format("woff2"); }
-@font-face { font-family: "Source Serif 4"; font-weight: 400; font-style: italic; font-display: swap; src: url("fonts/source-serif-4-latin-400-italic.woff2") format("woff2"); }
-@font-face { font-family: "Source Serif 4"; font-weight: 600; font-style: normal; font-display: swap; src: url("fonts/source-serif-4-latin-600-normal.woff2") format("woff2"); }
 
 :root {
   --ink: #1a1a1a;
@@ -25,7 +22,6 @@
   --alert: #e85d00;
 
   --face: Inter, "Helvetica Neue", Helvetica, "Segoe UI", Roboto, system-ui, sans-serif;
-  --reading: "Source Serif 4", "Source Serif Pro", Georgia, Cambria, serif;
 
   --t-display: 2.875rem;  /* 46px */
   --t-h2: 1.5625rem;      /* 25px */
@@ -120,7 +116,7 @@ input[type="text"] {
 
 /* Story */
 #module-title { font-size: var(--t-h2); line-height: 1.2; margin-bottom: var(--xl); }
-#story .narr { font-family: var(--reading); font-size: var(--t-body); line-height: 1.6; font-feature-settings: "onum" 1, "pnum" 1; }
+#story .narr { font-size: var(--t-body); line-height: 1.6; }
 #story h2 { font-size: var(--t-h3); line-height: 1.3; margin: var(--xl) 0 var(--md); }
 #story > .row:first-child h2 { margin-top: 0; }
 #story .doc { margin: 0 0 var(--lg); }
@@ -128,7 +124,7 @@ input[type="text"] {
 #story .docrow > .m { font-weight: 500; color: var(--ink-2); }
 #story .chosen { font-weight: 500; color: var(--ink-2); }
 #story .placeholder { background: var(--band); color: var(--ink-2); font-size: var(--t-note); line-height: 1.45; padding: var(--md); }
-#story .prompt { font-family: var(--reading); font-size: var(--t-body); line-height: 1.6; }
+#story .prompt { font-size: var(--t-body); line-height: 1.6; }
 #story .quiet { font-size: var(--t-note); color: var(--ink-3); margin-top: var(--lg); }
 
 #choices { display: flex; flex-direction: column; gap: var(--sm); margin: var(--lg) 0 var(--xl); }
