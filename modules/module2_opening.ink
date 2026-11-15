@@ -1,10 +1,24 @@
 // Module 2 (course Weeks 3 and 4): opening only, to show how a save code from Module 1
 // changes what a returning player reads and what they have to work with.
+// Version 0.5, 16 November 2026: opening panel added.
 // The rest of Module 2 is not written.
 
 INCLUDE ../shared/ledger.ink
 
-Month three # h
+Aim # brief-head
+Three months in, the board wants a one-page analysis of the region by Friday. The aim is to experience how the analysis you can do depends on the data you can get, the relationships you have, and whose voices reach you. # brief
+Course concepts # brief-head
+Week 3, organisational analysis and partnerships: SWOT, force field analysis, PESTEL and collaboration in practice. Week 4, communication and decision-making: organisational listening and whose voices are missed. # brief
+No best answer # brief-head
+None of the options in this game is the right one. Each can be defended and each has costs. The point is to see how these issues play out in practice, and the practical difficulties that shape how a manager can respond. # brief
+How it may feel # brief-head
+It may feel overwhelming at first, and that is part of the design. You are still new in the job, you see only one part of it, and you never have all the information you would like. Notice what feels uncomfortable or uncertain, because we'll talk about it in the tutorial. # brief
+How to play # brief-head
+There is nothing to download. Read each scene, then press one of the blue buttons to decide what to do. The grey line above the buttons tells you how many you can choose. Play straight through and choose what you would do; you don't need to find the best route. It takes about 15 minutes. # brief
+If you lose track of the people you meet, open "Who's who" at the top of the page. At the end there are questions to post on the Week 4 Padlet board. # brief
+Press the button to start. # rule
+* [Start month three]
+- Month three # h
 { code_loaded && done_m1:
     You are three months into the job.
 - else:

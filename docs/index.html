@@ -18,6 +18,7 @@
 <header class="head row">
   <div class="p"><a href="#" id="home-link">The Service We Could Become</a></div>
   <div class="m tools" id="tools" hidden>
+    <button type="button" class="linkish" id="whos-who-open" aria-haspopup="dialog">Who’s who</button>
     <button type="button" class="linkish" id="text-smaller">Smaller text</button>
     <button type="button" class="linkish" id="text-larger">Larger text</button>
     <button type="button" class="linkish" id="restart">Start again</button>
@@ -29,7 +30,7 @@
     <div class="row">
       <div class="p">
         <h1 class="display" id="home-title">The Service We Could Become</h1>
-        <p class="lede">A short text game for PHCM9391 Health Organisations, Strategy and Change. You play the first chief executive of a new integrated care organisation in a fictional Australian region. It plans and funds services, but it can't direct most of the people who deliver them.</p>
+        <p class="lede">A short text game for PHCM9391 Health Organisations, Strategy and Change. You play the first chief executive of a new integrated care organisation in a fictional Australian region. It plans and funds services, but it can’t direct most of the people who deliver them.</p>
       </div>
       <div class="m home-note">
         <p>Working prototype for the research team, November 2026. The text is a first draft and the names are working names.</p>
@@ -40,10 +41,11 @@
 
     <div class="row section">
       <div class="p">
-        <h2>Decisions made with partners you can't direct</h2>
+        <h2>Decisions made with partners you can’t direct</h2>
         <p>The game has five modules, one for each module of the course. Module 1 covers Weeks 1 and 2, Module 2 covers Weeks 3 and 4, and so on to Module 5, which covers Weeks 9 and 10.</p>
-        <p>Each module puts you in a situation drawn from that part of the course and asks you to decide something with incomplete information, limited time and partners who have their own interests. There is no right answer. What you decide changes what happens next, in the module and in later ones: who will work with you, what money and staff you have, and which options are still open.</p>
-        <p>Each module takes about 15 minutes. They are optional and not assessed, and nothing in tutorials depends on having played. Each one ends with questions to bring to your tutorial.</p>
+        <p>Each module puts you in a situation drawn from that part of the course and asks you to decide something with incomplete information, limited time and partners who have their own interests. There is no best answer in any module. The point is to experience how these decisions play out in practice, including the discomfort of making them. What you decide changes what happens next, in the module and in later ones: who will work with you, what money and staff you have, and which options are still open.</p>
+        <p>Each module opens with its aim and the course concepts it draws on, so you can start with any module. Each takes about 15 minutes. They are optional and not assessed, and nothing in tutorials depends on having played.</p>
+        <p>Each module ends with questions to post on the Padlet board for the second week of that course module (Module 1 on the Week 2 board, Module 2 on the Week 4 board, and so on) and to bring to your tutorial.</p>
         <p>At the end of each module you get a save code. Enter it at the start of the next module and the story picks up from your decisions. Without a code, a module starts from a typical position.</p>
       </div>
       <div class="m"></div>
@@ -51,11 +53,20 @@
 
     <div class="row section">
       <div class="p">
+        <h2>How to play</h2>
+        <p>There is nothing to download. The game runs in your web browser, on a phone or a computer. Read each scene, then press one of the blue buttons to decide what to do. A grey line above the buttons tells you how many you can choose.</p>
+        <p>Play straight through and choose what you would do; you don’t need to find the best route. If you lose track of the people you meet, open “Who’s who” at the top of the page while you play.</p>
+      </div>
+      <div class="m"></div>
+    </div>
+
+    <div class="row section">
+      <div class="p">
         <h2>The Tallowfield Integrated Care Authority</h2>
-        <p>The game is set in Tallowfield, a fictional region of about 880,000 people. After new state and federal governments agreed a new National Health Reform Agreement, Integrated Care Authorities are being set up across the country. Each one takes over the planning and funding of its region's community health services, primary care commissioning and programs meant to keep people out of hospital.</p>
-        <p>Work that two organisations did for two governments, the Local Health District for the state and the Primary Health Network for the Commonwealth, now sits with one new body. The Tallowfield Authority starts with a pooled budget of about $475 million a year, $410 million of it moved from the Local Health District and $65 million from the Primary Health Network, plus $34 million to run itself. About 140 staff have come across from the two organisations, along with hundreds of contracts and programs.</p>
-        <p>The Authority's reach stops well short of the whole system. The hospitals stay with the Local Health District. General practices and private allied health are independent businesses, funded mostly through Medicare. Aged care, disability services and social care are outside its remit, although they shape most of the problems it is meant to solve. The law that created it will be reviewed in three years, and the Minister's office is watching.</p>
-        <p>You play the Authority's first chief executive, starting in its first week.</p>
+        <p>The game is set in Tallowfield, a fictional region of about 880,000 people. After new state and federal governments agreed a new National Health Reform Agreement, Integrated Care Authorities are being set up across the country. Each one takes over the planning and funding of its region’s community health services, primary care commissioning and programs meant to keep people out of hospital.</p>
+        <p>Work that two organisations did for two governments, the Local Health District for the state and the Primary Health Network for the Commonwealth, now belongs to one new body. The Tallowfield Authority starts with a pooled budget of about $475 million a year, $410 million of it moved from the Local Health District and $65 million from the Primary Health Network, plus $34 million to run itself. About 140 staff have come across from the two organisations, along with hundreds of contracts and programs.</p>
+        <p>The Authority’s reach stops well short of the whole system. The hospitals stay with the Local Health District. General practices and private allied health are independent businesses, funded mostly through Medicare. Aged care, disability services and social care are outside its remit, although they shape most of the problems it is meant to solve. The law that created it will be reviewed in three years, and the Minister’s office is watching.</p>
+        <p>You play the Authority’s first chief executive, starting in its first week.</p>
       </div>
       <div class="m home-note">
         <p>The region, the Authority and everyone in it are fictional. The funding arrangements are modelled on Australian ones.</p>
@@ -101,10 +112,41 @@
           <button type="button" class="btn primary" id="go-m2">Go to the Module 2 opening with this code</button>
           <button type="button" class="btn" id="back-home">Back to the list of modules</button>
         </div>
+        <p class="again">If you’re curious, start again and choose differently. You don’t need to for the tutorial.</p>
+        <div class="actions">
+          <button type="button" class="btn" id="play-again">Play Module 1 again</button>
+        </div>
       </div>
     </div>
   </section>
 </main>
+
+<dialog id="whos-who" aria-labelledby="whos-who-title">
+  <div class="dialog-head">
+    <h2 id="whos-who-title">Who’s who</h2>
+    <button type="button" class="btn" id="whos-who-close">Close</button>
+  </div>
+  <h3>People</h3>
+  <dl>
+    <dt>Ruth Okonkwo</dt><dd>The Authority’s Director of Strategy and Planning, on loan from the state health department. She briefs you.</dd>
+    <dt>Dr Judith Aldous</dt><dd>Chair of the Authority’s board.</dd>
+    <dt>Simon Rafferty</dt><dd>Chief Executive of the Local Health District, which runs the region’s public hospitals.</dd>
+    <dt>Priya Raman</dt><dd>Chief Executive Officer of the Primary Health Network.</dd>
+    <dt>Dr Tom Nguyen</dt><dd>A GP in Eastlake, a member of the Authority’s board, and chair of the GP clinical council.</dd>
+    <dt>Dr Fiona McAllister</dt><dd>Director of Emergency Medicine at Tallowfield Hospital.</dd>
+    <dt>Leila Karimi</dt><dd>Manager of the Clinical Navigator Program, at Eastlake Community Health Centre.</dd>
+    <dt>Fatima Haddad</dt><dd>Manager of Eastlake Multicultural Services, an independent organisation.</dd>
+    <dt>Dianne Cooper</dt><dd>Chief Executive Officer of the Tallowfield Aboriginal Medical Service.</dd>
+  </dl>
+  <h3>Organisations</h3>
+  <dl>
+    <dt>The Authority</dt><dd>The Tallowfield Integrated Care Authority. It plans and funds community health, primary care commissioning and programs meant to keep people out of hospital. You are its chief executive.</dd>
+    <dt>The Local Health District (LHD)</dt><dd>Runs the public hospitals. Funded by the state government.</dd>
+    <dt>The Primary Health Network (PHN)</dt><dd>Funds and contracts general practices and other providers with Commonwealth (federal) money.</dd>
+    <dt>The Aboriginal Medical Service</dt><dd>An Aboriginal community controlled health service with its own board and clinics in Eastlake and Cobb’s Crossing.</dd>
+    <dt>The Clinical Navigator Program</dt><dd>14 Clinical Navigators, mostly registered nurses, who help about 620 people with several chronic conditions get the care they need. Its funding ends in four months.</dd>
+  </dl>
+</dialog>
 
 <footer class="row">
   <div class="p">

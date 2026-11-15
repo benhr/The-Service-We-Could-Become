@@ -1,5 +1,5 @@
 // Module 1 (course Weeks 1 and 2): Four partners, one inherited program
-// Prototype draft, version 0.3, November 2026. About 15 minutes.
+// Prototype draft, version 0.5, 16 November 2026. About 15 minutes.
 // Scenes involving the Aboriginal Medical Service are a first draft for review
 // by an Aboriginal colleague.
 //
@@ -15,6 +15,10 @@
 //   # doc          a line of a document (set in the grotesque)
 //   # prompt       a tutorial question
 //   # quiet        a small note
+//   # brief-head   a heading in the opening panel
+//   # brief        a line in the opening panel
+//   # rule         how many choices the player can make (shown above the buttons)
+//   # info         added to # doc-head: the document is for information only
 
 INCLUDE ../shared/ledger.ink
 
@@ -32,23 +36,44 @@ VAR kept_after_warning = false
 VAR navs_left = 0
 VAR navs = 14
 
--> monday
+-> opening
+
+=== opening ===
+Aim # brief-head
+You are the new chief executive of a health authority created a month ago from parts of two organisations, and you have one week to recommend what happens to a program it inherited. The aim is to experience what changing one part of a complex system looks like in practice: who has a stake in it, what you can and can't control, and what happens while you are busy elsewhere. # brief
+Course concepts # brief-head
+Week 1, health systems in a time of change: who funds what and who is responsible for it, and the Four Rs (retain, reform, reposition and repurpose). Week 2, thinking systemically: complex systems and systems theory. # brief
+No best answer # brief-head
+None of the options in this game is the right one. Each can be defended and each has costs. The point is to see how these issues play out in practice, and the practical difficulties that shape how a manager can respond. # brief
+How it may feel # brief-head
+It may feel overwhelming at first, and that is part of the design. You are new in the job, you see only one part of it, and you never have all the information you would like. Notice what feels uncomfortable or uncertain, because we'll talk about it in the tutorial. # brief
+How to play # brief-head
+There is nothing to download. Read each scene, then press one of the blue buttons to decide what to do. The grey line above the buttons tells you how many you can choose. Play straight through and choose what you would do; you don't need to find the best route. It takes about 15 minutes. # brief
+If you lose track of the people you meet, open "Who's who" at the top of the page. At the end there are questions to post on the Week 2 Padlet board. # brief
+Press the button to start. # rule
+* [Start Monday]
+- -> monday
 
 === monday ===
 Monday # h
-It's your first week as chief executive of the Tallowfield Integrated Care Authority, one of the new authorities set up across the country under the new National Health Reform Agreement. Most of the staff came across from the Local Health District (LHD) and the Primary Health Network (PHN). They are still on different industrial agreements, and for now, two email systems.
-Until last month, community health, primary care commissioning and the programs meant to keep people out of hospital were run by two organisations answering to two governments. Now they belong to the Authority: about $475 million a year, roughly 140 staff, and every contract and program the two organisations handed over.
+It's your first week as chief executive of the Tallowfield Integrated Care Authority, one of the new authorities set up across the country under the new National Health Reform Agreement. Most of the staff came across from the Local Health District (LHD) and the Primary Health Network (PHN). They are still employed under different industrial agreements, with different pay and conditions, and for now they have two email systems.
+Until last month, community health, primary care commissioning and the programs meant to keep people out of hospital and out of the emergency department (ED) were run by two organisations answering to two governments, the state and the Commonwealth. Now they belong to the Authority: about $475 million a year, roughly 140 staff, and every contract and program the two organisations handed over.
 The handover register lists 312 contracts and 41 programs. Each has an end date, a provider, staff, and people who rely on it. The Act that created the Authority will be reviewed in three years, and the Minister's office has already asked what it will have to show by its first quarterly report.
-Ruth Okonkwo, the Director of Strategy and Planning, is on secondment from the state health department. She comes in with one folder.
+Ruth Okonkwo, the Director of Strategy and Planning, is on loan from the state health department. She comes in with one folder.
 "This one needs a decision this week," she says. "The Clinical Navigator Program. It's the first program decision the Authority makes, so everyone else on that register will be reading it for what it says about the rest."
 The program has 14 Clinical Navigators, mostly registered nurses, with two allied health staff. They support about 620 people with several chronic conditions: booking appointments, arranging transport, sorting out medicines, following up test results and chasing services that haven't called back.
-The LHD and the PHN set it up three years ago, in the voluntary partnership that came before the Authority. The LHD runs the region's public hospitals and community health services. The PHN commissions primary care with Commonwealth funding.
+The LHD and the PHN set it up three years ago, in the voluntary partnership that came before the Authority. The LHD runs the region's public hospitals and community health services. The PHN commissions primary care with Commonwealth (federal) funding, which means it funds and contracts general practices and other providers to deliver services.
 The program costs about $2.3 million a year. The PHN pays $1.6 million. The LHD hosts the team at Eastlake Community Health Centre and covers $0.7 million in salaries for 11 of the 14 navigators. The funding agreement ends in four months.
 "Dr Aldous wants a recommendation in Friday's board paper," Ruth says. "As I see it there are four options. Retain it as it is. Reform how it works, for the same clients. Reposition it, so it serves a different part of the system. Or repurpose it, which means closing the program and using the staff and the money for something else."
 "Simon Rafferty and Priya Raman will both have views," she adds. "Probably not the same ones. And the navigators know their funding ends in four months, so they'll be watching too."
 -> monday_choices
 
 = monday_choices
+{ read_eval and asked_rules:
+    Go to your diary when you're ready. # rule
+- else:
+    Look at as much as you like, then go to your diary when you're ready. # rule
+}
 * [Read the evaluation summary]
     ~ read_eval = true
     -> evaluation
@@ -57,7 +82,7 @@ The program costs about $2.3 million a year. The PHN pays $1.6 million. The LHD 
     "The PHN's money is Commonwealth money with conditions attached," Ruth says. "It has to go to primary care. The LHD's money is state money, and it's tied up in salaries."
     "The new reform agreement put both into one pool for the Authority. It didn't change the conditions either of them came with."
     -> monday_choices
-* [Look at who wants to see you this week]
+* [Go to your diary for Tuesday and Wednesday]
     -> week
 
 = evaluation
@@ -73,10 +98,12 @@ Nine of the 620 clients identify as Aboriginal or Torres Strait Islander. The ev
 === week ===
 { meetings == 0:
     Tuesday and Wednesday # h
-    Five people have asked to meet you this week. Your diary has room for two. The other three won't wait for you.
+    Five people have asked to meet you this week about the Clinical Navigator Program. Your diary has room for two. The other three won't wait for you.
+    Choose two of these five. The three you don't choose will act without hearing from you. # rule
 }
 { meetings == 1:
     You have time for one more meeting.
+    Choose one more. # rule
 }
 { meetings >= 2:
     -> wednesday_evening
@@ -96,8 +123,8 @@ Nine of the 620 clients identify as Aboriginal or Torres Strait Islander. The ev
 ~ met_rafferty = true
 ~ meetings = meetings + 1
 You meet Simon Rafferty at Tallowfield Hospital. He has twenty minutes between the morning bed meeting and the executive meeting.
-"Eleven of those fourteen navigators are on my payroll," he says. "If the funding stops, so do their positions. They're good staff and I'd rather not lose them. I've asked People and Culture to hold off on redeployment until you've decided."
-He shows you this morning's patient flow report. Thirty-one patients are in the emergency department (ED) waiting for a bed. Nine people on the wards are ready for discharge and waiting on a residential aged care place or an NDIS package.
+"Eleven of those fourteen navigators are on my payroll," he says. "If the funding stops, so do their positions. They're good staff and I'd rather not lose them. I've asked People and Culture, our human resources team, to hold off on moving them into other jobs until you've decided."
+He shows you this morning's patient flow report. Thirty-one patients are in ED waiting for a bed. Nine people on the wards are ready to go home but are waiting for a residential aged care place (a nursing home bed) or for funding from the National Disability Insurance Scheme (NDIS).
 "Community health is your budget now," he says. "If it isn't done well, those patients come back through my ED. What I need is people who follow patients home. Someone who makes sure the GP gets the discharge summary, the medicines are right and the transport turns up. Your navigators already do a fair bit of that."
 "Most of their clients were referred after an admission anyway. What I'd want to know is how many readmissions they'd prevent."
 -> week
@@ -114,7 +141,7 @@ You meet Priya Raman at the PHN's office. She has the funding schedule printed o
 === nguyen ===
 ~ met_nguyen = true
 ~ meetings = meetings + 1
-Dr Tom Nguyen sees you at 7.30 am, before his first patient. He's a partner in a group practice in Eastlake and chairs the GP clinical council.
+Dr Tom Nguyen sees you at 7.30 am, before his first patient. He's a partner in a group practice in Eastlake and chairs the GP clinical council, where local GPs advise on services in the region.
 "GPs like the navigators," he says. "They deal with the things we can't sort out in a standard consult. Transport, forms, the pharmacy and the hospital having different medication lists."
 "What they don't like is the referral form. It's four pages. And sometimes a navigator contacts one of our patients and we only find out when the patient asks us what's going on."
 "We'd rather pick up the phone than fill in a form. One number, and someone who answers it."
@@ -125,8 +152,8 @@ Dr Tom Nguyen sees you at 7.30 am, before his first patient. He's a partner in a
 ~ met_mcallister = true
 ~ meetings = meetings + 1
 Dr Fiona McAllister meets you in the ED office. She has printed a list from the department's data.
-"Fifty people made 410 presentations to this ED last year," she says. "A few of them were here most weeks."
-"Eleven of them are enrolled in the navigator program. The other 39 aren't, because the program only takes GP referrals. About half of our frequent presenters don't have a regular GP, which is part of why they keep coming here."
+"Fifty people came to this ED 410 times between them last year," she says. "A few of them were here most weeks."
+"Eleven of them are enrolled in the navigator program. The other 39 aren't, because the program only takes GP referrals. About half of these frequent presenters don't have a regular GP, which is part of why they keep coming here."
 "Let us refer from ED. Put a navigator here three days a week and we'd know within a few months whether it made a difference."
 -> week
 
@@ -134,7 +161,7 @@ Dr Fiona McAllister meets you in the ED office. She has printed a list from the 
 ~ met_karimi = true
 ~ meetings = meetings + 1
 Leila Karimi, the program manager, shows you around Eastlake Community Health Centre. Fatima Haddad, who manages Eastlake Multicultural Services, has come along too.
-You sit in while a navigator goes through a client's letters with her: hospital, Centrelink, pharmacy, and two she can't place. The navigator books an Arabic interpreter for Thursday's appointment and arranges community transport.
+You sit in while a navigator goes through a client's letters with her: hospital, Centrelink (the government's welfare agency), pharmacy, and two she can't place. The navigator books an Arabic interpreter for Thursday's appointment and arranges community transport.
 "The evaluation is weaker than people think," Karimi says. "Most clients were enrolled straight after a hospital admission, and admissions tend to drop after that anyway. There was no comparison group, because nobody funded one. I want the program kept, and I want it evaluated properly."
 Haddad tells you about a family who missed a specialist appointment because the letter was in English and nobody at home could read it. A navigator found it on the fridge five weeks later.
 "Nine of our clients are Aboriginal," Karimi says. "I'd have expected more for this region, but I don't really know. I was told the Aboriginal Medical Service runs its own care coordination. Nobody asked them whether they wanted this program, or whether it would work for their clients."
@@ -143,34 +170,36 @@ Haddad tells you about a family who missed a specialist appointment because the 
 
 === wednesday_evening ===
 Wednesday evening # h
-You have 212 unread emails. Three are about the program, from people you didn't make time for.
+You have 212 unread emails. Three are about the program, from people you didn't make time for. They are here for information: they show what happened while you were in other meetings, and you don't need to reply.
 { not met_rafferty:
-    Email from LHD People and Culture, copied to Simon Rafferty # doc-head
-    Given the uncertainty about the Clinical Navigator Program's funding, we have started redeployment conversations with the 11 LHD-employed navigators, as our policy requires. We will keep you informed. # doc
+    Email from LHD People and Culture (human resources), copied to Simon Rafferty # doc-head # info
+    Given the uncertainty about the Clinical Navigator Program's funding, we have started talking with the 11 LHD-employed navigators about moving into other LHD jobs (redeployment), as our policy requires. We will keep you informed. # doc
 }
 { not met_raman:
-    Email from Priya Raman, CEO, PHN # doc-head
+    Email from Priya Raman, CEO, PHN # doc-head # info
     Our board met last night and resolved that the PHN's commissioning funds stay in primary care. I wanted you to hear it from me before Friday's board papers. Happy to talk. # doc
 }
 { not met_nguyen:
-    GP clinical council minutes, item 6 # doc-head
+    Minutes of the GP clinical council, where local GPs advise on services in the region, item 6 # doc-head # info
     Members noted that the Clinical Navigator Program's funding ends in four months. Members asked that any change to referral arrangements come to the council before it is decided. Nobody from the Authority attended. # doc
 }
 { not met_mcallister:
-    Email from Dr Fiona McAllister to Simon Rafferty, copied to you # doc-head
-    Eleven of our 50 most frequent presenters are already on the navigator list. If the program is being reviewed, ED would like a say. Can we discuss at Thursday's executive? # doc
+    Email from Dr Fiona McAllister to Simon Rafferty, copied to you # doc-head # info
+    Eleven of the 50 people who come to our ED most often are already clients of the navigator program. If the program is being reviewed, ED would like a say. Can we discuss at Thursday's executive? # doc
 }
 { not met_karimi:
-    Email from Leila Karimi, program manager # doc-head
+    Email from Leila Karimi, program manager # doc-head # info
     The team has heard the funding ends in four months. Two of the navigators have job interviews this week. What can I tell them? # doc
 }
+One thing does need a decision from you tonight.
 The Tallowfield Aboriginal Medical Service nominates one of the Authority's board members, but you haven't met anyone from the Service yet. Its CEO is Dianne Cooper. The Service has its own board and runs its own clinics in Eastlake and Cobb's Crossing.
-* [Write a short note to the Service's CEO]
+Choose one. This is about the Aboriginal Medical Service only. # rule
+* [Write to Dianne Cooper, CEO of the Aboriginal Medical Service, yourself]
     ~ m1_ams_contacted = 1
     You write to Dianne Cooper, introduce yourself and ask whether the Service would be willing to meet.
-* [Ask Ruth to arrange a meeting]
+* [Ask Ruth to set up a meeting with the Aboriginal Medical Service]
     "I'll ask," Ruth says. "Their diary is fuller than ours."
-* [Leave it until the Authority has a plan]
+* [Leave contacting the Aboriginal Medical Service until the Authority has a plan]
     You add it to your list for next month.
 - -> thursday
 
@@ -186,6 +215,7 @@ Ruth has drafted the paper and left a gap for the recommendation.
 -> options
 
 = options
+Choose one. This is your recommendation to the board. # rule
 * [Retain: extend it for 12 months, with a proper evaluation]
     ~ nav_fate = 1
 * [Reform: a simpler referral pathway and interpreter-supported intake, designed with GPs and clients]
@@ -218,6 +248,7 @@ Ruth has drafted the paper and left a gap for the recommendation.
 -> second_look_choice
 
 = second_look_choice
+Choose one. # rule
 * [Leave the recommendation as it is]
     ~ kept_after_warning = true
     -> reason
@@ -225,6 +256,7 @@ Ruth has drafted the paper and left a gap for the recommendation.
     -> options_again
 
 = options_again
+Choose one. # rule
 * [Retain: extend it for 12 months, with a proper evaluation]
     ~ nav_fate = 1
 * [Reform: a simpler referral pathway and interpreter-supported intake, designed with GPs and clients]
@@ -237,6 +269,7 @@ Ruth has drafted the paper and left a gap for the recommendation.
 
 = reason
 Ruth asks for your main reason, to open the covering note. "Dr Aldous reads that first."
+Choose one. Ruth will put it first in the covering note. # rule
 * [The evidence]
     ~ m1_reason = 1
 * [The relationships the Authority needs]
@@ -572,8 +605,11 @@ A week later # h
 - confidence <= 3: Dr Aldous has asked Ruth for a briefing on your first month.
 - else: Dr Aldous has asked for an update at the next board meeting.
 }
-For your tutorial # h
-Each person you met described a different problem that the navigator program was meant to solve. Whose problem did you decide it was, and who wasn't in a position to say? # prompt
-Three people acted this week without hearing from you. What did that cost, and could you have known it would? # prompt
-You gave one main reason for your recommendation. Which of the other two would you have been comfortable explaining to the program's clients? # prompt
+Questions for the Padlet and your tutorial # h
+Looking back, what was most important in shaping your recommendation? What do you notice looking back on it now? # prompt
+When did you feel least sure of yourself in this module's game? What did that uncertainty make you do - seek out more information, draw mostly on one game character's advice, or just decide anyway? # prompt
+You had time to meet with two of five characters in the game this module. What did you assume about the three you didn't meet with, and how did those assumptions shape the module? # prompt
+Which of the Four Rs did you recommend? Who gained from that, who lost out, and how might the rest of the system respond? # prompt
+Post a short response to one or more of these questions on the Week 2 Padlet board, which you'll find in the Week 2 section on Moodle. # padlet
+The game's questions always go on the board for the second week of each course module: Module 1 on the Week 2 board, Module 2 on the Week 4 board, and so on. The same board holds your exit pass from the tutorial (the one thing you learnt) and your comments on the readings. We'll draw on the posts in the tutorial. # padlet
 -> END

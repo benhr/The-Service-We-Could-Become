@@ -12,7 +12,7 @@ const $ = id => document.getElementById(id);
 const home = $('home'), play = $('play'), storyEl = $('story'), choicesEl = $('choices'), endingEl = $('ending');
 const codeInput = $('code-input'), codeMsg = $('code-message');
 
-let story = null, current = null, startState = null, lastCode = '', docBlock = null;
+let story = null, current = null, startState = null, lastCode = '', docBlock = null, briefBlock = null, ruleText = '';
 
 // Text size, remembered for this visit only if storage is available.
 let scale = 1;
@@ -42,7 +42,7 @@ async function start(ep, ledgerState) {
     for (const k of LEDGER) story.variablesState[k] = ledgerState[k];
     story.variablesState['code_loaded'] = true;
   }
-  storyEl.innerHTML = ''; choicesEl.innerHTML = ''; endingEl.hidden = true; docBlock = null; promptCount = 0;
+  storyEl.innerHTML = ''; choicesEl.innerHTML = ''; endingEl.hidden = true; docBlock = null; briefBlock = null; ruleText = ''; promptCount = 0;
   $('module-title').textContent = TITLES[ep] || ep;
   home.hidden = true; play.hidden = false; $('tools').hidden = false;
   history.replaceState(null, '', '#' + ep);
@@ -83,6 +83,17 @@ function smart(t) {
 function render(raw, tags) {
   const text = smart(raw);
   const tag = tags[0] || '';
+  // The opening panel: aim, course concepts and how to play, in one shaded block.
+  if (tag === 'brief-head' || tag === 'brief') {
+    docBlock = null;
+    if (!briefBlock) {
+      briefBlock = document.createElement('div'); briefBlock.className = 'brief';
+      row('', 'briefrow').appendChild(briefBlock);
+    }
+    if (tag === 'brief-head') { const h = document.createElement('h2'); h.textContent = text; briefBlock.appendChild(h); return h; }
+    return para(briefBlock, text);
+  }
+  briefBlock = null;
   if (tag === 'h') {
     docBlock = null;
     const h = document.createElement('h2'); h.textContent = text;
@@ -90,7 +101,10 @@ function render(raw, tags) {
     return h;
   }
   if (tag === 'doc-head') {
-    const cell = row(text, 'docrow');
+    const cell = row('', 'docrow');
+    const m = cell.parentElement.querySelector('.m');
+    if (tags.includes('info')) { const i = document.createElement('span'); i.className = 'info'; i.textContent = 'For information'; m.appendChild(i); }
+    const from = document.createElement('span'); from.textContent = text; m.appendChild(from);
     docBlock = document.createElement('div'); docBlock.className = 'doc';
     cell.appendChild(docBlock);
     return cell.parentElement;
@@ -103,6 +117,7 @@ function render(raw, tags) {
   if (tag === 'placeholder') return para(row('Placeholder'), text, 'placeholder');
   if (tag === 'prompt') { promptCount++; return para(row('Question ' + promptCount), text, 'prompt'); }
   if (tag === 'quiet') return para(row(''), text, 'quiet');
+  if (tag === 'padlet') return para(row(storyEl.querySelector('.padletrow') ? '' : 'Padlet', 'padletrow'), text, 'padlet');
   return para(row(''), text, 'narr');
 }
 
@@ -111,10 +126,19 @@ function step(first) {
   while (story.canContinue) {
     const text = story.Continue().trim();
     if (!text) continue;
-    const el = render(text, story.currentTags || []);
+    const tags = story.currentTags || [];
+    // A rule line says how many choices can be made; it sits with the buttons.
+    if (tags[0] === 'rule') { ruleText = smart(text); continue; }
+    const el = render(text, tags);
     if (!firstNew) firstNew = el;
   }
   choicesEl.innerHTML = '';
+  if (ruleText && story.currentChoices.length) {
+    const r = document.createElement('p'); r.className = 'rule'; r.id = 'choice-rule'; r.textContent = ruleText;
+    choicesEl.appendChild(r);
+    choicesEl.setAttribute('aria-describedby', 'choice-rule');
+  } else choicesEl.removeAttribute('aria-describedby');
+  ruleText = '';
   story.currentChoices.forEach((choice, i) => {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'btn'; b.textContent = smart(choice.text);
@@ -130,7 +154,7 @@ function step(first) {
 }
 
 function choose(i, text) {
-  docBlock = null;
+  docBlock = null; briefBlock = null;
   para(row('You chose'), smart(text), 'chosen');
   story.ChooseChoiceIndex(i);
   step(false);
@@ -138,7 +162,7 @@ function choose(i, text) {
 
 function finish() {
   if (current !== 'module1') {
-    const p = document.createElement('p');
+    const p = document.createElement('div'); p.className = 'actions';
     const b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = 'Back to the list of modules';
     b.addEventListener('click', showHome); p.appendChild(b); choicesEl.appendChild(p);
     return;
@@ -167,6 +191,13 @@ $('go-m2').addEventListener('click', () => {
   start('module2_opening', d.ok ? d.state : null);
 });
 $('back-home').addEventListener('click', showHome);
+$('play-again').addEventListener('click', () => start(current, startState));
+
+// Who's who: a list of the people and organisations, opened from the running head.
+const whos = $('whos-who');
+$('whos-who-open').addEventListener('click', () => { whos.showModal(); });
+$('whos-who-close').addEventListener('click', () => whos.close());
+whos.addEventListener('click', e => { if (e.target === whos) whos.close(); });
 $('home-link').addEventListener('click', e => { e.preventDefault(); showHome(); });
 $('restart').addEventListener('click', () => start(current, startState));
 

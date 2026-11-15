@@ -15,7 +15,7 @@ const LEDGER = [...DONE, ...TRACKS.map(t => t.name), ...FLAGS.map(f => f[0])];
 const problems = [];
 const endings = new Map();
 const outcomes = new Map();
-let paths = 0, maxWords = 0, maxPath = null;
+let paths = 0, maxWords = 0, maxPath = null, maxStory = 0;
 
 function readLedger(story) {
   const s = {};
@@ -23,16 +23,28 @@ function readLedger(story) {
   return s;
 }
 
-function walk(story, trail, words) {
+// Every set of choices must have a rule line just before it, saying how many
+// can be chosen. The first mention of ED on any path must be the glossed one.
+function walk(story, trail, words, seenED, storyWords = 0) {
+  let lastTags = [];
   while (story.canContinue) {
     const line = story.Continue();
-    words += line.split(/\s+/).filter(Boolean).length;
+    const n = line.split(/\s+/).filter(Boolean).length;
+    words += n;
+    if (line.trim()) lastTags = story.currentTags || [];
+    if (!['brief', 'brief-head', 'rule', 'padlet', 'prompt'].includes(lastTags[0])) storyWords += n;
+    if (!seenED && /\bED\b/.test(line)) {
+      seenED = true;
+      if (!line.includes('emergency department (ED)')) problems.push({ trail, error: 'first mention of ED is unglossed: ' + line.slice(0, 80) });
+    }
   }
+  if (story.currentChoices.length && lastTags[0] !== 'rule') problems.push({ trail, error: 'choices without a rule line' });
   if (story.currentErrors && story.currentErrors.length) problems.push({ trail, errors: story.currentErrors });
   const choices = story.currentChoices;
   if (choices.length === 0) {
     paths++;
     if (words > maxWords) { maxWords = words; maxPath = trail; }
+    if (storyWords > maxStory) maxStory = storyWords;
     const s = readLedger(story);
     for (const t of TRACKS) if (s[t.name] < 0 || s[t.name] > 7) problems.push({ trail, error: `${t.name}=${s[t.name]}` });
     if (!s.done_m1) problems.push({ trail, error: 'ended without done_m1' });
@@ -54,17 +66,17 @@ function walk(story, trail, words) {
     story.state.LoadJson(saved);
     const label = story.currentChoices[i].text;
     story.ChooseChoiceIndex(i);
-    walk(story, [...trail, label], words);
+    walk(story, [...trail, label], words, seenED, storyWords);
   }
 }
 
 const t0 = Date.now();
 const s1 = new Story(load('module1'));
-walk(s1, [], 0);
+walk(s1, [], 0, false);
 console.log(`Module 1: ${paths} paths walked in ${((Date.now() - t0) / 1000).toFixed(1)}s, ${endings.size} distinct end states`);
 console.log('Recommendation and board outcome, by number of paths:');
 for (const [k, v] of [...outcomes].sort()) console.log(`  ${k}: ${v}`);
-console.log(`Longest path: ${maxWords} words of narration`);
+console.log(`Longest path: ${maxWords} words in all, ${maxStory} words of story (without the opening panel, rule lines, questions and Padlet note)`);
 console.log('  ' + maxPath.join(' | '));
 
 // Module 2 opening: with no code, and with every distinct Module 1 ending.
@@ -74,7 +86,10 @@ const run3 = (state) => {
   if (state) { for (const k of LEDGER) st.variablesState[k] = state[k]; st.variablesState.code_loaded = true; }
   let text = '';
   while (st.canContinue) text += st.Continue();
-  if (st.currentChoices.length) problems.push({ error: 'Module 2 opening offered choices' });
+  if (st.currentChoices.length !== 1) problems.push({ error: 'Module 2 opening should offer one start button' });
+  else st.ChooseChoiceIndex(0);
+  while (st.canContinue) text += st.Continue();
+  if (st.currentChoices.length) problems.push({ error: 'Module 2 opening offered choices after the start' });
   if (st.currentErrors && st.currentErrors.length) problems.push({ error: 'Module 2: ' + st.currentErrors });
   m2runs++;
   return text;

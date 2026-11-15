@@ -3,6 +3,7 @@
   Choices: monochrome; reference grid; reading voice (the story is read straight
   through, so narration is in Source Serif 4, while documents, choices and the
   interface stay in the grotesque); documentary.
+  The signal blue marks everything the player can press, and nothing else.
   Fonts are served from this site so the page makes no third-party requests.
 */
 
@@ -91,14 +92,18 @@ a:hover { color: var(--ink); }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
 
 /* Buttons: Ulm Button, primary and secondary. */
+/* Every button is blue: solid for choices and the main action, outlined for the rest. */
 button.btn {
   font: inherit; font-weight: 500; font-size: var(--t-body); line-height: 1.4;
-  padding: 12px 20px; cursor: pointer; text-align: left;
-  border: 1px solid var(--ink); background: var(--ground); color: var(--ink);
+  min-height: 48px; padding: 12px 20px; cursor: pointer; text-align: left;
+  border: 2px solid var(--signal); background: var(--ground); color: var(--signal);
 }
-button.btn:hover { background: var(--ink); color: var(--ground); }
-button.btn.primary { background: var(--ink); color: var(--ground); }
-button.btn.primary:hover { background: var(--ground); color: var(--ink); }
+button.btn:hover { background: #e5eef7; }
+button.btn:active { background: #cddff0; }
+button.btn.primary, #choices .btn { background: var(--signal); color: var(--ground); }
+button.btn.primary:hover, #choices .btn:hover { background: #00427a; border-color: #00427a; }
+button.btn.primary:active, #choices .btn:active { background: #003563; border-color: #003563; }
+button.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
 /* Home */
 .module, .section { margin-top: var(--xl); }
@@ -127,6 +132,32 @@ input[type="text"] {
 #story .quiet { font-size: var(--t-note); color: var(--ink-3); margin-top: var(--lg); }
 
 #choices { display: flex; flex-direction: column; gap: var(--sm); margin: var(--lg) 0 var(--xl); }
+#choices .rule { font-size: var(--t-note); line-height: 1.45; color: var(--ink-3); margin: 0 0 var(--xs); }
+
+/* Opening panel: aim, course concepts and how to play. */
+#story .brief { background: var(--band); padding: var(--lg); margin-bottom: var(--md); }
+#story .brief h2 { font-family: var(--face); font-size: var(--t-body); line-height: 1.4; font-weight: 600; margin: var(--lg) 0 var(--xs); }
+#story .brief h2:first-child { margin-top: 0; }
+#story .brief p { font-size: var(--t-body); line-height: 1.55; margin-bottom: var(--sm); }
+#story .briefrow + .row h2 { margin-top: var(--xl); }
+
+#story .docrow > .m .info { display: block; font-weight: 400; color: var(--ink-3); }
+#story .padlet { font-size: var(--t-body); line-height: 1.55; }
+#ending .again { margin-top: var(--lg); color: var(--ink-2); }
+
+/* Who's who */
+dialog#whos-who {
+  max-width: 40rem; width: calc(100% - 2 * var(--md)); max-height: calc(100% - 2 * var(--md));
+  padding: var(--lg); border: 1px solid var(--ink); background: var(--ground); color: var(--ink);
+  font-size: var(--t-body); line-height: 1.5;
+}
+dialog#whos-who::backdrop { background: rgba(26, 26, 26, 0.45); }
+.dialog-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--md); margin-bottom: var(--md); }
+.dialog-head h2 { font-size: var(--t-h3); line-height: 1.3; }
+dialog#whos-who h3 { font-size: var(--t-body); margin: var(--lg) 0 var(--sm); }
+dialog#whos-who dl { margin: 0; }
+dialog#whos-who dt { font-weight: 600; margin-top: var(--md); }
+dialog#whos-who dd { margin: 0; color: var(--ink-2); }
 #choices:empty { margin: 0; }
 #choices .btn { width: 100%; }
 
