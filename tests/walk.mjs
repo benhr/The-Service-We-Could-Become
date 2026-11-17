@@ -102,7 +102,7 @@ console.log(`Module 2 opening: ${m2runs} runs`);
 const sample = encode({ ...defaults(), done_m1: true, nav_fate: 2, m1_reason: 1 });
 let caught = 0, total = 0;
 const ALPH = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
-const raw = sample.replace(/^SWC-/, '').replace(/-/g, '');
+const raw = sample.replace(/^EP-/, '').replace(/-/g, '');
 for (let i = 0; i < raw.length; i++) for (const c of ALPH) {
   if (c === raw[i]) continue;
   total++;
@@ -110,7 +110,7 @@ for (let i = 0; i < raw.length; i++) for (const c of ALPH) {
 }
 console.log(`Codec: ${caught} of ${total} single-character typos rejected; sample ${sample}`);
 if (caught !== total) problems.push({ error: 'typo not caught' });
-for (const v of [sample.toLowerCase(), raw, ' ' + sample + ' ', sample.replace(/0/g, 'O')]) if (!decode(v).ok) problems.push({ error: 'lenient input rejected: ' + v });
+for (const v of [sample.toLowerCase(), raw, ' ' + sample + ' ', sample.replace(/0/g, 'O'), 'SWC-' + raw.match(/.{4}/g).join('-')]) if (!decode(v).ok) problems.push({ error: 'lenient input rejected: ' + v });
 
 if (problems.length) {
   console.log(`${problems.length} problems`);

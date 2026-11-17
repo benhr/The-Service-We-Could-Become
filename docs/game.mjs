@@ -16,10 +16,10 @@ let story = null, current = null, startState = null, lastCode = '', docBlock = n
 
 // Text size, remembered for this visit only if storage is available.
 let scale = 1;
-try { scale = Number(sessionStorage.getItem('swc-scale')) || 1; } catch (e) { /* storage unavailable */ }
+try { scale = Number(sessionStorage.getItem('ep-scale')) || 1; } catch (e) { /* storage unavailable */ }
 const applyScale = () => {
   document.documentElement.style.fontSize = (100 * scale) + '%';
-  try { sessionStorage.setItem('swc-scale', String(scale)); } catch (e) { /* ignore */ }
+  try { sessionStorage.setItem('ep-scale', String(scale)); } catch (e) { /* ignore */ }
 };
 applyScale();
 $('text-smaller').addEventListener('click', () => { scale = Math.max(0.85, +(scale - 0.1).toFixed(2)); applyScale(); });

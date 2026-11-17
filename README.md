@@ -1,4 +1,4 @@
-# The Service We Could Become
+# Establishment Phase: Leading a new kind of health organisation
 
 A short narrative serious game for PHCM9391 Health Organisations, Strategy and Change (UNSW), written in ink and played in the browser with inkjs.
 

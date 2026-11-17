@@ -1,4 +1,5 @@
-// Save code: 80 bits as 16 Crockford base32 characters, shown as SWC-XXXX-XXXX-XXXX-XXXX.
+// Save code: 80 bits as 16 Crockford base32 characters, shown as EP-XXXX-XXXX-XXXX-XXXX.
+// Codes made before 17 November 2026 carry the old prefix SWC; both prefixes are accepted.
 // Layout: format version (3) | modules completed (10, five used) | 7 tracks x 3 | flags (40) | CRC-6 (6).
 // The code carries game decisions only. Nothing identifies a person and nothing is sent anywhere.
 
@@ -76,15 +77,16 @@ export function encode(state) {
   pushBits(bits, crc6(bits), 6);
   let chars = '';
   for (let i = 0; i < 80; i += 5) chars += ALPHABET[readBits(bits, i, 5)];
-  return 'SWC-' + chars.match(/.{4}/g).join('-');
+  return 'EP-' + chars.match(/.{4}/g).join('-');
 }
 
 // Returns { ok: true, state } or { ok: false, error }.
 export function decode(input) {
   let s = String(input || '').toUpperCase().replace(/[\s-]/g, '');
-  if (s.startsWith('SWC')) s = s.slice(3);
+  if (s.length === 19 && s.startsWith('SWC')) s = s.slice(3);
+  else if (s.length === 18 && s.startsWith('EP')) s = s.slice(2);
   s = s.replace(/O/g, '0').replace(/[IL]/g, '1');
-  if (s.length !== 16) return { ok: false, error: 'That code is the wrong length. A code has 16 characters after SWC.' };
+  if (s.length !== 16) return { ok: false, error: 'That code is the wrong length. A code has 16 characters after EP.' };
   const bits = [];
   for (const c of s) {
     const v = ALPHABET.indexOf(c);
